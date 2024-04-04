@@ -39,5 +39,9 @@ class JetstreamServiceProvider extends ServiceProvider
             'update',
             'delete',
         ]);
+
+        Jetstream::ignoreRoutes();
+
+        
     }
 }

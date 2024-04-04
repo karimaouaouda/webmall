@@ -36,9 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'client' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'clients',
+        ],
+        'seller' => [
+            'driver' => 'session',
+            'provider' => 'sellers',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -60,9 +68,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'clients' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\Auth\Client::class,
+        ],
+        'sellers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Auth\Seller::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Auth\Admin::class,
         ],
 
         // 'users' => [
@@ -91,8 +107,20 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'clients' => [
+            'provider' => 'clients',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'sellers' => [
+            'provider' => 'sellers',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
