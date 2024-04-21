@@ -17,7 +17,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <span>have an account? </span>
-                <a href="{{ route('login', ['domain' => 'seller']) }}" class="underline font-medium text-[#070eff]">
+                <a href="{{ route('seller.login', ['domain' => 'seller']) }}" class="underline font-medium text-[#070eff]">
                     login now
                 </a>
             </div>

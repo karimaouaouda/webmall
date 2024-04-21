@@ -6,6 +6,7 @@ use App\Actions\Fortify\Auth\Client\AttemptToAuthenticate;
 use App\Actions\Fortify\Auth\Client\RedirectIfTwoFactorAuthenticatable;
 use App\Http\Requests\StoreClientRequest;
 use App\Models\Auth\Client;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -88,7 +89,7 @@ class ClientController extends Controller
      */
     public function create(Request $request)
     {
-
+        
         return view("auth.client.login", ["guard" => "client"]);
     }
 
@@ -165,7 +166,7 @@ class ClientController extends Controller
     }
 
 
-    public function socialCallback($domain, $service)
+    public function socialCallback($domain, $service, Request $request)
     {
         $this->validateService($service);
 
@@ -179,6 +180,7 @@ class ClientController extends Controller
             $user = Socialite::driver($service)->stateless()->user();
         }
 
+        Authenticate::class;
 
         $targetUser = Client::updateOrCreate([
             $service . "_id" => $user->id,
@@ -192,10 +194,16 @@ class ClientController extends Controller
 
         $targetUser->makeVisible(['password']);
 
-        
+        $credentilas = [
+            'email' => $targetUser->email,
+            'password' => $user->token
+        ];
+
         $this->guard->login($targetUser);
 
-        return redirect()->to( 'https://client.webmall.test/test' );
+        return redirect('/dashboard');
+
+        
     }
 
     private function validateService($service = null)

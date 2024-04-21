@@ -4,8 +4,10 @@ namespace App\Filament\Client\Resources;
 
 use App\Filament\Client\Resources\CommandResource\Pages;
 use App\Filament\Client\Resources\CommandResource\RelationManagers;
-use App\Models\Command;
+use App\Models\Client\Command;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +25,12 @@ class CommandResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Section::make("hello to this")
+                    ->schema([
+                        TextInput::make("abdou")
+                            ->required()
+                            ->placeholder("hello abdou"),
+                    ])
             ]);
     }
 
@@ -31,7 +38,7 @@ class CommandResource extends Resource
     {
         return $table
             ->columns([
-                //
+                
             ])
             ->filters([
                 //

@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Client\Command;
-use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Auth\Access\Response;
 
 class CommandPolicy
@@ -13,7 +13,7 @@ class CommandPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class CommandPolicy
      */
     public function view(User $user, Command $command): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class CommandPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class CommandPolicy
      */
     public function update(User $user, Command $command): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class CommandPolicy
      */
     public function delete(User $user, Command $command): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class CommandPolicy
      */
     public function restore(User $user, Command $command): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +61,6 @@ class CommandPolicy
      */
     public function forceDelete(User $user, Command $command): bool
     {
-        //
+        return true;
     }
 }

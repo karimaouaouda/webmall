@@ -21,7 +21,7 @@
             {{ __('we need your personal information to manage your account') }}
         </h1>
         <p class="text-lg">You do not have an account?</p>
-        <a href="{{ route('register', ['domain' => 'seller']) }}"
+        <a href="{{ route('seller.register', ['domain' => 'seller']) }}"
             class="inline-block flex-none px-4 py-3 border-2 
             rounded-lg font-medium border-black bg-black text-white
             disabled:bg-gray-400 disabled:text-black">

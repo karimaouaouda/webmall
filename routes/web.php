@@ -41,7 +41,6 @@ Route::domain("{domain}.webmall.test")->group(function () {
 
     Route::middleware('auth:client')->group(function(){
         Route::get('/test', function(){
-            dd(auth('client')->user());
             return "hhh";
         });
     });
