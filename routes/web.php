@@ -5,6 +5,8 @@ use App\Exceptions\NoSubdomainException;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ClientController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProductController;
+use App\Models\Shop\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -30,6 +32,19 @@ Route::domain('client.' . env('APP_HOST'))->group(function () {
         });
 });
 
+
+Route::domain("www." . env('APP_HOST') )->group(function(){
+
+    Route::controller(ProductController::class)
+    ->name('product.')
+    ->group(function(){
+
+        Route::get('/view/{product}', 'shop')->name('view');
+
+    });
+
+});
+
 Route::domain("{domain}.webmall.test")->group(function () {
 
     $request = request();
@@ -40,14 +55,13 @@ Route::domain("{domain}.webmall.test")->group(function () {
     }
 
     Route::controller(MainController::class)
-        ->group(function(){
+        ->group(function () {
 
             Route::get('/discover', 'discover')->name('discover');
-
         });
 
-    Route::middleware('auth:client')->group(function(){
-        Route::get('/test', function(){
+    Route::middleware('auth:client')->group(function () {
+        Route::get('/test', function () {
             return "hhh";
         });
     });

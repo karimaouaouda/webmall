@@ -2,23 +2,18 @@
 
 namespace App\View\Components\Main;
 
-use App\Models\Shop\Product;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ProductCard extends Component
+class FilterBox extends Component
 {
     /**
      * Create a new component instance.
      */
-
-    
-
-    public function __construct(public Product $model)
+    public function __construct()
     {
-        
-        $this->model = $model;
+        //
     }
 
     /**
@@ -26,6 +21,6 @@ class ProductCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.main.product-card');
+        return view('components.main.filter-box');
     }
 }

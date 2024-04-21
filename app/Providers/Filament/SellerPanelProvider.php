@@ -34,7 +34,6 @@ class SellerPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
 
-
         return $panel
             ->id('seller')
             ->path('/dashboard')

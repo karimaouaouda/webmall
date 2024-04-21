@@ -25,6 +25,7 @@ class ClientPanelProvider extends PanelProvider
         return $panel
             ->id('client')
             ->path('dashboard')
+            ->domain("www.webmall.test")
             ->authGuard('client')
             ->colors([
                 'primary' => Color::Amber,

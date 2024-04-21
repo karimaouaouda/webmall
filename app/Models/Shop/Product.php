@@ -42,6 +42,11 @@ class Product extends Model
     }
 
 
+    public function getPriceAfterSoldeAttribute(){
+        return $this->price * (1 - $this->solde / 100);
+    }
+
+
     public function shop(){
         return $this->belongsTo(Shop::class,
                             'shop_unique_name',
