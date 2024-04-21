@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Fortify\Auth\Seller\AttemptToAuthenticate;
 use App\Actions\Fortify\Auth\Seller\RedirectIfTwoFactorAuthenticatable;
+use App\Http\Requests\StoreSellerRequest;
+use App\Models\Auth\Seller;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -51,9 +53,27 @@ class SellerController extends Controller
     }
 
     public function registerView(){
-        return view("auth.seller.register");
+        $etap = 1;//rand(1, 2);
+        return view("auth.seller.register", compact('etap'));
     }
 
+    /**
+     * this function is to store the seller personal information
+     */
+    public function register(StoreSellerRequest $request){
+        $request->merge([
+            'name' => $request->first_name . " " . $request->last_name
+        ]);
+
+        $seller = new Seller($request->all());
+
+        $seller->save();
+
+        $this->guard->login($seller);
+
+
+        return redirect()->to(route('dashboard', ['domain' => 'seller']));
+    }
     /**
      * Attempt to authenticate a new session.
      *
@@ -63,7 +83,7 @@ class SellerController extends Controller
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
-            return app(LoginResponse::class);
+            return redirect("/dashboard");
         });
     }
 

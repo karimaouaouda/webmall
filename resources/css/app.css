@@ -9,10 +9,92 @@
     display: none;
 }
 
-.items-col{
+.items-col {
     @apply flex items-center justify-center flex-col gap-4
 }
 
-.bg-primary{
+.bg-primary {
     @apply bg-[#ffe85c]
+}
+
+.text-primary {
+    @apply text-[#ffe85c]
+}
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    animation: spinner-plncf9 4s infinite;
+}
+
+.spinner::before,
+.spinner::after {
+    content: "";
+    grid-area: 1/1;
+    border: 9px solid;
+    border-radius: 50%;
+    border-color: #474bff #474bff #0000 #0000;
+    mix-blend-mode: darken;
+    animation: spinner-plncf9 1s infinite linear;
+}
+
+.spinner::after {
+    border-color: #0000 #0000 #dbdcef #dbdcef;
+    animation-direction: reverse;
+}
+
+@keyframes spinner-plncf9 {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+.btn {
+    @apply p-2 cursor-pointer
+}
+
+.toggler {
+    @apply whitespace-nowrap
+}
+
+.navlist-black .tab {
+    @apply p-1 rounded-md hover:bg-white hover:bg-opacity-15
+}
+
+img {
+    max-width: unset;
+}
+
+/* Width and height for the scrollbar track */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Styles for the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background: black;
+    /* Color of the thumb */
+    /* Rounded corners */
+}
+
+/* Hover styles for the thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Darker color on hover */
+}
+
+/* Styles for the scrollbar track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the track */
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+/* Styles for the scrollbar corner */
+::-webkit-scrollbar-corner {
+    background: transparent;
+    /* Background of the scrollbar corner */
 }

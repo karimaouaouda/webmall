@@ -8,5 +8,7 @@
 </head>
 <body>
     {{ __('welcome.test') }}
+
+    {{ $ip }}
 </body>
 </html>

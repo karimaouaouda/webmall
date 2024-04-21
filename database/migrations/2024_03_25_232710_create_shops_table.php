@@ -12,8 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shops', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('seller_id')
+                ->references('id')
+                ->on('sellers')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->string('unique_name')
+                ->uniqid();
+                
+            $table->string('name');
+            $table->tinyText('descriuption');
+            $table->string('logo');
+            $table->string('cover');
+            $table->enum('status', [
+                'processing',
+                'accepted',
+                'rejected'
+            ]);
             $table->timestamps();
+
+            $table->primary('unique_name');
         });
     }
 

@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Shop;
-use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Auth\Access\Response;
 
 class ShopPolicy
@@ -13,7 +13,7 @@ class ShopPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class ShopPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class ShopPolicy
      */
     public function update(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class ShopPolicy
      */
     public function delete(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class ShopPolicy
      */
     public function restore(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +61,6 @@ class ShopPolicy
      */
     public function forceDelete(User $user, Shop $shop): bool
     {
-        //
+        return true;
     }
 }

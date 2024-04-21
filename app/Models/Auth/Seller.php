@@ -5,14 +5,18 @@ namespace App\Models\Auth;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Shop;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class Seller extends Authenticatable
+
+class Seller extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -67,11 +71,22 @@ class Seller extends Authenticatable
 
     //attributes
 
+    public function getHasShopAttribute() : bool{
+        return $this->shop != null;
+    }
 
     //relations
 
-    public function shop(){
+    public function shop() : HasOne{
         return $this->hasOne(Shop::class);
     }
-    
+
+
+
+
+    //filament methods
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
 }

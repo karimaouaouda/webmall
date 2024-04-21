@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,8 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        
+        Authenticate::redirectUsing(function(\Illuminate\Http\Request $request){
+            return route($request->subdomain . ".login", ['domain' => "seller"]);
+        });
+        AuthenticationException::redirectUsing(function(\Illuminate\Http\Request $request){
+            return route($request->subdomain . ".login");
+        });
 
         /* if(! $this->hasSubDomain()){
             throw new NoSubdomainException();

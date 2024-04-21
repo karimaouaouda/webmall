@@ -20,6 +20,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+
+            $table->bigInteger('google_id')->nullable();
+            $table->text('google_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
+
+            $table->bigInteger('facebook_id')->nullable();
+            $table->text('facebook_token')->nullable();
+            $table->text('facebook_refresh_token')->nullable();
+
+            
             $table->timestamps();
         });
     }

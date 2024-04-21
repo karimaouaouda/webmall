@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->registerRoutes();
     }
 
     /**
@@ -21,10 +21,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerRoutes();
     }
 
-    public function registerRoutes(){
+    public function registerRoutes()
+    {
         Route::domain("admin.webmall.test")
             ->middleware("web")
             ->group(base_path("routes/admin.php"));

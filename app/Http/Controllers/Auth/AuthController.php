@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Client;
 use Exception;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -20,40 +24,5 @@ class AuthController extends Controller
     }
 
 
-    public function socialRedirect($domain, $service){
-        $this->validateService($service);
-
-        if($service == "fb"){
-            $service = "facebook";
-        }
-
-        return Socialite::driver($service)->redirect();
-
-    }
-
-
-    public function socialCallback($domain, $service){
-        $this->validateService($service);
-
-        if($service == "fb"){
-            $service = "facebook";
-        }
-
-        try {
-            $user = Socialite::driver($service)->user();
-        } catch (\Throwable $th) {
-            $user = Socialite::driver($service)->stateless()->user();
-        }
-
-        dd($user);
-
-    }
-
-    private function validateService($service = null){
-        $services = Config::get('services.socialite', null);
-
-        if($service == null || $services == null || !in_array($service, $services)){
-            throw new Exception("no service $service available", 400);
-        }
-    }
+    
 }

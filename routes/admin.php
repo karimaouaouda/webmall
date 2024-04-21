@@ -10,4 +10,6 @@ Route::controller(\App\Http\Controllers\Auth\AdminController::class)
     Route::get("/login", "create")->name("login");
 
     Route::post("/login", "store");
+
+    Route::get('register', 'registerView');
 });

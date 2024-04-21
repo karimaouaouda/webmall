@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\Business\DoesntHaveBusinessException;
 use App\Exceptions\NoSubdomainException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NoSubdomainException $e, Request $request) {
+            return redirect()->to($e->getRedirectUrl());
+        });
+
+        $exceptions->render(function(DoesntHaveBusinessException $e, Request $request ){
             return redirect()->to($e->getRedirectUrl());
         });
     })

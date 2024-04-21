@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Actions\Fortify\Auth\Client\AttemptToAuthenticate;
 use App\Actions\Fortify\Auth\Client\RedirectIfTwoFactorAuthenticatable;
 use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ClientController;
 use App\Http\Controllers\Auth\SellerController;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -32,7 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->when([
             ClientController::class,
             RedirectIfTwoFactorAuthenticatable::class,
-            AttemptToAuthenticate::class
+            AttemptToAuthenticate::class,
+            AuthController::class
         ])->needs(StatefulGuard::class)
             ->give(function(){
                 return Auth::guard("client");

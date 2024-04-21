@@ -50,7 +50,7 @@
                         new
                         experiences</h1>
                     <p class="text-lg">You do not have an account?</p>
-                    <a href="{{ route('register', ['domain' => 'client']) }}"
+                    <a href="{{ route('client.register', ['domain' => 'client']) }}"
                         class="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white">Create
                         account here</a>
                 </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <span>Not a member? </span>
-                        <a href="{{ route('register', ['domain' => 'client']) }}" class="underline font-medium text-[#070eff]">
+                        <a href="{{ route('client.register', ['domain' => 'client']) }}" class="underline font-medium text-[#070eff]">
                             Sign up now
                         </a>
                     </div>

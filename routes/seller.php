@@ -1,9 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
 use Livewire\Livewire;
+
+
+Route::get('pass/{pass}',function($pass){
+    return Hash::make($pass);
+} );
 
 Route::get('/register', fn () => "hello there" );
 
@@ -13,6 +19,7 @@ Route::name("seller.")->group(function(){
     
 
     Route::controller(\App\Http\Controllers\Auth\SellerController::class)
+        ->middleware("guest:seller")
         ->group(function (){
 
         Route::get("/login", "create")->name("login");
@@ -23,8 +30,4 @@ Route::name("seller.")->group(function(){
 
         Route::post('register', 'register');
     });
-
-
-    
-
 });

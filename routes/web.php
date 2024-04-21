@@ -3,55 +3,19 @@
 use App\Events\Test;
 use App\Exceptions\NoSubdomainException;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ClientController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Routing\Router;
 
-Route::domain("{domain}.webmall.test")->group(function () {
-
-    $request = request();
-
-    if ($request->subdomain === null) {
-
-        throw new NoSubdomainException("no subdomain exception", 302, $request->path() . "?" . $request->getQueryString());
-    }
 
 
-    Route::get('/', function () {
-        return "hhhh";
-    });
-
-
-    Route::middleware([
-        'auth:sanctum',
-        config('jetstream.auth_session'),
-        'verified',
-    ])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-    });
-
-
-    /**
-     * this section here is for social login using one of the services in cofig/service.php
-     */
-    Route::controller(AuthController::class)->name("social.")->prefix("auth")
-        ->group(function () {
-
-            Route::get('redirect/{service}', "socialRedirect")->name("redirect");
-
-            Route::get('/{service}/callback', 'socialCallback')->name('callback');
-        });
-
-
-
-
-
+Route::domain('client.' . env('APP_HOST'))->group(function () {
     Route::controller(\App\Http\Controllers\Auth\ClientController::class)
         ->middleware(["guest:client"])
+        ->name('client.')
         ->group(function () {
 
             Route::get('/login', 'create')->name('login');
@@ -64,7 +28,39 @@ Route::domain("{domain}.webmall.test")->group(function () {
 
             Route::post('/registerhandler', 'handle');
         });
+});
 
+Route::domain("{domain}.webmall.test")->group(function () {
+
+    $request = request();
+
+    if ($request->subdomain === null) {
+
+        throw new NoSubdomainException("no subdomain exception", 302, $request->path() . "?" . $request->getQueryString());
+    }
+
+    Route::middleware('auth:client')->group(function(){
+        Route::get('/test', function(){
+            dd(auth('client')->user());
+            return "hhh";
+        });
+    });
+
+
+    Route::controller(MainController::class)->group(function () {
+        Route::get('/', 'index');
+    });
+
+    /**
+     * this section here is for social login using one of the services in cofig/service.php
+     */
+    Route::controller(ClientController::class)->name("social.")->prefix("auth")
+        ->group(function () {
+
+            Route::get('redirect/{service}', "socialRedirect")->name("redirect");
+
+            Route::get('/{service}/callback', 'socialCallback')->name('callback');
+        });
 
     Route::get('/watch', function () {
         return view("watch");
@@ -95,6 +91,12 @@ Route::domain("{domain}.webmall.test")->group(function () {
 
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+
+        if ($request->subdomain != "seller") {
+            throw new NoSubdomainException("this route is valid just for seller and www subdomains", direction: route("seller.register"));
+        }
+
+
         $request->fulfill();
 
         return redirect('/dashboard');
