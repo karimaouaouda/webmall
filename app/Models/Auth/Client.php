@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Client\Command;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -74,5 +75,10 @@ class Client extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+
+    public function commands(){
+        return $this->hasMany(Command::class);
     }
 }

@@ -39,6 +39,13 @@ Route::domain("{domain}.webmall.test")->group(function () {
         throw new NoSubdomainException("no subdomain exception", 302, $request->path() . "?" . $request->getQueryString());
     }
 
+    Route::controller(MainController::class)
+        ->group(function(){
+
+            Route::get('/discover', 'discover')->name('discover');
+
+        });
+
     Route::middleware('auth:client')->group(function(){
         Route::get('/test', function(){
             return "hhh";
