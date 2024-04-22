@@ -17,13 +17,13 @@
     <div class="mt-4 px-5 pb-5">
         <a href="#">
             <h5 class="text-sm line-clamp-1 text-ellipsis font-semibold tracking-tight text-slate-900">
-                {{ $model->slug }}    
+                {{ $model->slug }}
             </h5>
         </a>
         <div class="mt-2 flex items-center justify-between">
             <p>
-                <span class="text-3xl font-bold text-red-400">${{$model->price_after_solde}}</span>
-                <span class="text-sm text-slate-900 line-through">${{ $model->price }}</span>
+                <span class="text-3xl font-bold text-red-400">DA{{$model->price_after_solde ?? 50}}</span>
+                <span class="text-sm text-slate-900 line-through">DA{{ $model->price ?? 100 }}</span>
             </p>
             <div class="flex items-center">
                 <i class="bi bi-star-fill"></i>

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('commands', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')
+            ->references('id')
+            ->on('clients');
+
+            $table->string('payment_method');
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commands');
+        //Schema::dropIfExists('commands');
     }
 };

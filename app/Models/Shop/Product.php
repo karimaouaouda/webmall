@@ -3,6 +3,7 @@
 namespace App\Models\Shop;
 
 use App\Events\ProductRunningOut;
+use App\Models\Client\Command;
 use App\Models\Setup\SubCategory;
 use App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,6 +57,11 @@ class Product extends Model
 
     public function subCategory(){
         return $this->BelongsTo(SubCategory::class);
+    }
+
+
+    public function commands(){
+        return $this->belongsToMany(Command::class, 'commands_products');
     }
 
 

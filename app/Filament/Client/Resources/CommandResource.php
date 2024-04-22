@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -38,13 +39,15 @@ class CommandResource extends Resource
     {
         return $table
             ->columns([
-                
+                TextColumn::make('id')
+                ->label('ID'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -60,12 +63,14 @@ class CommandResource extends Resource
         ];
     }
 
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListCommands::route('/'),
             'create' => Pages\CreateCommand::route('/create'),
             'edit' => Pages\EditCommand::route('/{record}/edit'),
+            //'discover' => Pages\DiscoverPage::route('/discover/{record}')
         ];
     }
 }

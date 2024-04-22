@@ -4,8 +4,10 @@ use App\Events\Test;
 use App\Exceptions\NoSubdomainException;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ClientController;
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
+use App\Models\Client\Command;
 use App\Models\Shop\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -39,7 +41,18 @@ Route::domain("www." . env('APP_HOST') )->group(function(){
     ->name('product.')
     ->group(function(){
 
-        Route::get('/view/{product}', 'shop')->name('view');
+        Route::get('/view/{product}', 'show')->name('view');
+
+    });
+
+
+    Route::controller(CommandController::class)
+    ->name('command.')
+    ->group(function(){
+
+        Route::get('/product/buy/{product}', 'create')->name('pay');
+
+        Route::post('/product/buy/{product}', 'store');
 
     });
 
@@ -84,12 +97,6 @@ Route::domain("{domain}.webmall.test")->group(function () {
 
     Route::get('/watch', function () {
         return view("watch");
-    });
-
-    Route::domain("seller.webmall.test")->group(function () {
-        Route::get('/', function () {
-            return "hello from another domain";
-        });
     });
 
     Route::post('/fire', function () {

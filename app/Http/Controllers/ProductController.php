@@ -37,7 +37,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product->slug;
+        return view("product.view", compact('product'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\CommandStatus;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Redirect;
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        
+        //dd(CommandStatus::values());
     }
 
     /**

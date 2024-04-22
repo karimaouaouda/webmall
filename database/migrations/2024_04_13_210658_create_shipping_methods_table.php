@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('shipping_methods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('prefix')->nullable();
+            $table->text("description")->nullable();
+            $table->string('logo', 2048)->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('categories');
+        Schema::dropIfExists('shipping_methods');
     }
 };
