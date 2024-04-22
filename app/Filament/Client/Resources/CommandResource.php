@@ -4,6 +4,7 @@ namespace App\Filament\Client\Resources;
 
 use App\Filament\Client\Resources\CommandResource\Pages;
 use App\Filament\Client\Resources\CommandResource\RelationManagers;
+use App\Filament\Client\Resources\CommandResource\Widgets\ShippingStatusView;
 use App\Models\Client\Command;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -40,7 +41,11 @@ class CommandResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
-                ->label('ID'),
+                    ->label('ID'),
+                TextColumn::make('payment_method')
+                    ->label('Payment_method'),
+                TextColumn::make('created_at')
+                    ->label('Date'),
             ])
             ->filters([
                 //
@@ -48,6 +53,7 @@ class CommandResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -70,7 +76,15 @@ class CommandResource extends Resource
             'index' => Pages\ListCommands::route('/'),
             'create' => Pages\CreateCommand::route('/create'),
             'edit' => Pages\EditCommand::route('/{record}/edit'),
+            'view' => Pages\ViewCommand::route('/view/{record}')
             //'discover' => Pages\DiscoverPage::route('/discover/{record}')
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ShippingStatusView::class,
         ];
     }
 }

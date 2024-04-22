@@ -5,22 +5,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::dropIfExists('commands_products');
-        Schema::create('commands_products', function(Blueprint $table){
+        Schema::create('commands_products', function (Blueprint $table) {
             $table->foreignId('command_id')
-            ->references('id')
-            ->on('commands');
+                ->references('id')
+                ->on('commands');
 
             $table->foreignId('product_id')
-            ->references('id')
-            ->on('products');
+                ->references('id')
+                ->on('products');
 
             $table->string('tracking_code');
 
@@ -30,8 +29,8 @@ return new class extends Migration
 
 
             $table->foreign('tracking_code')
-            ->references('tracking_code')
-            ->on('shippings');
+                ->references('tracking_code')
+                ->on('shippings');
 
         });
     }
@@ -41,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('commands');
     }
 };

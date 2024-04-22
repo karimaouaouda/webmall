@@ -10,6 +10,13 @@
     </x-auth.seller.parts.sidebar>
 
     <div class="flex flex-1 flex-col items-center justify-center px-10 relative">
+        @if( $errors->any() )
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
         <div class="flex lg:hidden justify-between items-center w-full py-4">
             <div class="flex items-center justify-start space-x-3">
                 <span class="bg-black rounded-full w-6 h-6"></span>
