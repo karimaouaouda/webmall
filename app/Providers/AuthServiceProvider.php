@@ -4,13 +4,16 @@ namespace App\Providers;
 
 use App\Actions\Fortify\Auth\Client\AttemptToAuthenticate;
 use App\Actions\Fortify\Auth\Client\RedirectIfTwoFactorAuthenticatable;
+use App\Actions\Fortify\Auth\Seller\RedirectIfMissingBusiness;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ClientController;
 use App\Http\Controllers\Auth\SellerController;
+use App\Http\Controllers\Business\BusinessController;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\HttpKernel;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,6 +33,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->loadAuthMigrations();
         //link every guard with it's classes
 
+        $this->app->when(BusinessController::class)
+                        ->needs(StatefulGuard::class)
+                        ->give(function(){
+                            return Auth::guard('seller');
+                        });
+
         $this->app->when([
             ClientController::class,
             RedirectIfTwoFactorAuthenticatable::class,
@@ -43,7 +52,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->when([
             SellerController::class,
             \App\Actions\Fortify\Auth\Seller\RedirectIfTwoFactorAuthenticatable::class,
-            \App\Actions\Fortify\Auth\Seller\AttemptToAuthenticate::class
+            \App\Actions\Fortify\Auth\Seller\AttemptToAuthenticate::class,
+            RedirectIfMissingBusiness::class
         ])->needs(StatefulGuard::class)
             ->give(function(){
                 return Auth::guard("seller");

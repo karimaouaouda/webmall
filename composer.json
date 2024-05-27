@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "cryptomus/api-php-sdk": "^1.0",
         "filament/filament": "^3.2",
+        "gemini-api-php/client": "^1.4",
         "guava/filament-nested-resources": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.0",
@@ -31,7 +33,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+
+        "files": [
+            "helpers/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

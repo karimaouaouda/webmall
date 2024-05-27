@@ -13,6 +13,8 @@
         </div>
         @endsession
 
+
+
         <form method="POST" action="{{ route('seller.login') }}">
             @csrf
 

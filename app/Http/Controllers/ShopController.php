@@ -21,7 +21,9 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        return view("auth.seller.register", [
+            "etap" => 2
+        ]);
     }
 
     /**

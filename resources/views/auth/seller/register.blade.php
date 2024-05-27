@@ -32,12 +32,12 @@
 </style>
 
 <body class="bg-white">
-    
+
 
     <script src="{{asset('custom-js/loader.js')}}" defer></script>
     <!-- Example -->
     <div class="flex min-h-screen">
-            
+
             @switch($etap)
                 @case(1)
                     <x-auth.seller.parts.personal-information/>
@@ -50,6 +50,8 @@
             @endswitch
         </div>
     </div>
+
+    @vite('resources/js/alpine.js')
 
     <div id="loader" class="w-full h-full left-0 top-0 flex justify-center items-center
      bg-slate-700 bg-opacity-50 absolute">

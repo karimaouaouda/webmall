@@ -25,6 +25,9 @@ class RouteServiceProvider extends ServiceProvider
 
     public function registerRoutes()
     {
+        Route::domain('business.webmall.test')
+            ->middleware('web')
+            ->group(base_path('routes/business.php'));
         Route::domain("admin.webmall.test")
             ->middleware("web")
             ->group(base_path("routes/admin.php"));
@@ -32,5 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::domain("seller.webmall.test")
             ->middleware("web")
             ->group(base_path('routes/seller.php'));
+
+        
     }
 }

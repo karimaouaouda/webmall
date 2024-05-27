@@ -22,7 +22,4 @@ class AuthController extends Controller
     {
         $this->guard = $guard;
     }
-
-
-    
 }

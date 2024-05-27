@@ -9,6 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'name';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+
 
     protected $fillable = [
         'name'
@@ -16,6 +23,6 @@ class Category extends Model
 
 
     public function subCategories(){
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(SubCategory::class, 'category_name');
     }
 }

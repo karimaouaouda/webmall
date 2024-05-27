@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::dropIfExists('products');
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sub_category_id')->references('id')->on('sub_categories');
+            $table->string('sub_category_name');
             $table->string('shop_unique_name');
             $table->string('slug');
             $table->tinyText('description');
@@ -25,7 +25,9 @@ return new class extends Migration
             $table->integer('sensitive_qte', unsigned:true);
             $table->timestamps();
 
-
+            $table->foreign('sub_category_name')->references('name')->on('sub_categories')
+                ->cascadeOnUpdate()
+                ->noActionOnDelete();
 
             $table->foreign('shop_unique_name')->references('unique_name')->on('shops')
                     ->cascadeOnDelete()
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('products');
+        Schema::dropIfExists('products');
     }
 };

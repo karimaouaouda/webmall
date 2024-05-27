@@ -2,10 +2,9 @@
 
 namespace App\Filament\Seller\Resources;
 
+use App\Filament\Clusters\Settings;
 use App\Filament\Seller\Resources\ProductResource\Pages;
-use App\Filament\Seller\Resources\ProductResource\RelationManagers;
 use App\Models\Shop\Product;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -18,12 +17,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Guava\FilamentNestedResources\Ancestor;
-use Guava\FilamentNestedResources\Concerns\NestedRelationManager;
-use Guava\FilamentNestedResources\Concerns\NestedResource;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Support\Enums\FontFamily;
+
 use Filament\Tables\Filters\Filter;
 
 class ProductResource extends Resource
@@ -52,7 +47,7 @@ class ProductResource extends Resource
                 TextInput::make('available_qte')->placeholder('avalaible quantity')
                     ->type('number')
                     ->required(),
-                
+
                 TextInput::make('price')->placeholder('price')
                     ->type('number')
                     ->required(),
@@ -68,7 +63,7 @@ class ProductResource extends Resource
                 TextInput::make('sensitive_qte')->placeholder('price')
                     ->type('number')
                     ->required(),
-                
+
                 Select::make('sub_category_id')
                     ->label('category')
                     ->relationship('subCategory', 'name')
@@ -87,7 +82,7 @@ class ProductResource extends Resource
                             ->multiple(),
 
                     ]),
-            ]); 
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -97,7 +92,7 @@ class ProductResource extends Resource
                 TextColumn::make('id')
                     ->label('ID')
                     ->prefix('#'),
-                
+
                 TextColumn::make('slug')
                     ->label('product name')
                     ->sortable(),

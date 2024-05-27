@@ -2,17 +2,27 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Client\Cart;
 use App\Models\Client\Command;
+use App\Models\Client\Interest;
+use App\Models\Setup\SubCategory;
+use App\Models\Shop;
+use App\Observers\ClientObserver;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+#[ObservedBy([ClientObserver::class])]
 class Client extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     use HasApiTokens;
@@ -78,7 +88,24 @@ class Client extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
 
 
-    public function commands(){
+    public function commands(): HasMany
+    {
         return $this->hasMany(Command::class);
     }
+
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany(Shop::class, 'shops_followers');
+    }
+
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function interests(): BelongsToMany
+    {
+        return $this->belongsToMany(SubCategory::class, 'interests' );
+    }
+
 }

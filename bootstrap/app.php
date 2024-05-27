@@ -17,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(function(){
+            return route("seller.login");
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NoSubdomainException $e, Request $request) {

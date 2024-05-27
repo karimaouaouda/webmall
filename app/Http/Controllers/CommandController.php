@@ -42,7 +42,7 @@ class CommandController extends Controller
         DB::table('commands_products')->insert([
             'command_id' => $command->id,
             'product_id' => $product->id,
-            'tracking_code' => "00-000000",
+            'tracking_code' =>  env("SHIPPING_DEFAULT_CODE"),
             'status' => CommandStatus::Processing,
             'created_at' => now(),
             'updated_at' => now()

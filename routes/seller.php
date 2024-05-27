@@ -15,9 +15,6 @@ Route::get('/register', fn () => "hello there" );
 
 Route::name("seller.")->group(function(){
 
-    Route::get('/', fn () => "seller page");
-    
-
     Route::controller(\App\Http\Controllers\Auth\SellerController::class)
         ->middleware("guest:seller")
         ->group(function (){
@@ -30,4 +27,9 @@ Route::name("seller.")->group(function(){
 
         Route::post('register', 'register');
     });
+
+
+//    Route::get('/verify/id', 'IDVerificationView')->name('id.verify');
+//
+//    Route::post('/verify/id', 'handleIdVerification');
 });

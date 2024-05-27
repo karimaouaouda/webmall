@@ -2,7 +2,7 @@
     class="relative mx-1 my-2 shrink-0 hover:scale-105 duration-150 ease-in-out flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
     <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
         <img class="object-cover"
-            src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+            src="{{ $model->image }}"
             alt="product image" />
         <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39%
             OFF</span>
@@ -21,8 +21,8 @@
             </h5>
         </a>
         <div class="mt-2 flex items-center justify-between">
-            <p>
-                <span class="text-3xl font-bold text-red-400">DA{{$model->price_after_solde ?? 50}}</span>
+            <p class="whitespace-nowrap">
+                <span class="text-xl font-bold text-red-400">{{$model->price_after_solde == 0 ? "FREE" : "DA ".  $model->price_after_solde }}</span>
                 <span class="text-sm text-slate-900 line-through">DA{{ $model->price ?? 100 }}</span>
             </p>
             <div class="flex items-center">
@@ -48,10 +48,13 @@
                 <i class="bi bi-eye mx-2"></i>
                 preview
             </a>
-            <a href="javascript:void(0)"
-                class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            <button data-target="{{ $model->id }}"
+                class="addToCart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 <i class="bi bi-cart3 text-xl mx-2 -mt-1"></i>
-                Add to cart</a>
+                Add to cart
+            </button>
         </div>
     </div>
 </div>
+
+@vite(['resources/js/shopping/cart.js'])

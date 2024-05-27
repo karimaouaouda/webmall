@@ -2,8 +2,11 @@
 
 namespace App\Enums;
 
+use App\Enums\Traits\Enum;
+
 enum CommandStatus: string
 {
+    use Enum;
     case Processing = 'processing';
 
     case Shipped = 'shipped';
@@ -11,16 +14,7 @@ enum CommandStatus: string
     case Finished = 'finished';
 
 
-    public static function values(){
 
-        $values = [];
-        foreach(self::cases() as $case){
-            $values[] = $case->value;
-        }
-
-
-        return $values;
-    }
 
 
 }

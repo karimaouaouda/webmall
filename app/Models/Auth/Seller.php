@@ -64,6 +64,7 @@ class Seller extends Authenticatable implements FilamentUser
     protected function casts(): array
     {
         return [
+            'id_verified_at' => 'datetime',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
@@ -81,6 +82,10 @@ class Seller extends Authenticatable implements FilamentUser
         return $this->hasOne(Shop::class);
     }
 
+    public function IDVerified(): bool
+    {
+        return $this->id_verified_at != null;
+    }
 
 
 

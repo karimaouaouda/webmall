@@ -9,14 +9,9 @@
             </a>
         </div>
         <div class="whitespace-nowrap gap-3 h-fit overflow-y-hidden overflow-x-auto flex">
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
-            <x-main.shop-card/>
+            @foreach($shops as $shop)
+                <x-main.shop-card :shop="$shop"/>
+            @endforeach
         </div>
     </div>
 
@@ -30,14 +25,9 @@
             </a>
         </div>
         <div class="whitespace-nowrap pb-2 gap-3 h-fit overflow-y-hidden overflow-x-auto flex">
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
+            @foreach($products as $product)
+                <x-main.product-card :product="$product"/>
+            @endforeach
         </div>
     </div>
 

@@ -59,7 +59,11 @@
 }
 
 .navlist-black .tab {
-    @apply p-1 rounded-md hover:bg-white hover:bg-opacity-15
+    @apply p-1 rounded-md hover:bg-slate-700 hover:bg-opacity-15
+}
+
+.animation-300{
+    @apply duration-300 ease-in-out
 }
 
 img {

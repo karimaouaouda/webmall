@@ -3,6 +3,7 @@
 namespace Database\Factories\Auth;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Auth\Client>
@@ -16,8 +17,9 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            //
+
         ];
     }
 }

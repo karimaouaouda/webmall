@@ -6,13 +6,14 @@
     <div class="mb-4 md:mr-6 md:mb-0 relative">
       <img class="h-44 rounded-full border-2 border-sky-500 my-auto object-cover w-full md:w-44" src="{{ asset('assets/images/coca-logo.jpg') }}" alt="" />
     </div>
+    <!-- can be component (<name-of the component) -->
     <div class="flex flex-col w-auto relative">
-      <p class="text-xl font-medium text-slate-200">James Edward</p>
-      <p class="mb-4 text-sm font-medium text-sky-200">Senior Editor</p> 
+      <p class="text-xl font-medium text-slate-200"> {{ $shop->name }} </p>
+      <p class="mb-4 text-sm font-medium text-sky-200">{{ '@'.$shop->unique_name }}</p>
       <div class="flex space-x-2">
         <div class="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
           <p class="text-sm font-medium text-gray-500">Products</p>
-          <p class="text-3xl font-medium text-gray-600">13</p>
+          <p class="text-3xl font-medium text-gray-600">{{ $shop->products()->count() }}</p>
         </div>
         <div class="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
           <p class="text-sm font-medium text-gray-500">Posts</p>
@@ -20,7 +21,7 @@
         </div>
         <div class="flex flex-col items-center rounded-xl bg-gray-100 px-4 py-2">
           <p class="text-sm font-medium text-gray-500">Followers</p>
-          <p class="text-3xl font-medium text-gray-600">2.5k</p>
+          <p class="text-3xl font-medium text-gray-600">{{ $shop->followers()->count() }}</p>
         </div>
       </div>
       <div class="mb-3"></div>
@@ -30,4 +31,3 @@
       </div>
     </div>
   </div>
-  

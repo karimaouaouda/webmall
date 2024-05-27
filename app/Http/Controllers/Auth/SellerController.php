@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\Fortify\Auth\Seller\AttemptToAuthenticate;
+use App\Actions\Fortify\Auth\Seller\CreateSellerAccount;
+use App\Actions\Fortify\Auth\Seller\RedirectIfMissingBusiness;
 use App\Actions\Fortify\Auth\Seller\RedirectIfTwoFactorAuthenticatable;
 use App\Http\Requests\StoreSellerRequest;
 use App\Models\Auth\Seller;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
@@ -60,19 +63,23 @@ class SellerController extends Controller
     /**
      * this function is to store the seller personal information
      */
-    public function register(StoreSellerRequest $request){
+    public function register(StoreSellerRequest $request)
+    {
         $request->merge([
             'name' => $request->first_name . " " . $request->last_name
         ]);
 
-        $seller = new Seller($request->all());
+        $newRequest =  (new Pipeline(app()))->send($request)->via('handle')->through([
+            CreateSellerAccount::class,
+        ])->thenReturn();
 
-        $seller->save();
-
-        $this->guard->login($seller);
+        $loginRequest = LoginRequest::createFrom($request);
 
 
-        return redirect()->to(route('dashboard', ['domain' => 'seller']));
+        return $this->loginPipeline($loginRequest)->then(function($request){
+            redirect('/dashboard');
+        });
+
     }
     /**
      * Attempt to authenticate a new session.
@@ -113,6 +120,7 @@ class SellerController extends Controller
             Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
             AttemptToAuthenticate::class,
             PrepareAuthenticatedSession::class,
+            RedirectIfMissingBusiness::class
         ]));
     }
 
