@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Http\Requests\StoreShopRequest;
 use App\Http\Requests\UpdateShopRequest;
+use Illuminate\Support\Facades\Config;
 
 class ShopController extends Controller
 {
@@ -14,6 +15,20 @@ class ShopController extends Controller
     public function index()
     {
         //
+    }
+
+    public function view($domain){
+        dd($domain);
+    }
+
+    public function start(){
+        $seller = auth('seller')->user();
+
+        if(!$seller->hasAddress()){
+            $next = base64_encode(Config::get('app.seller.domain'). '/dashboard/settings#id');
+            return redirect()->to('/dashboard/settings#address/?next=' . $next);
+        }
+
     }
 
     /**

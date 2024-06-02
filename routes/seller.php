@@ -26,7 +26,32 @@ Route::name("seller.")->group(function(){
         Route::get('/register', 'registerView')->name('register');
 
         Route::post('register', 'register');
+
     });
+
+    Route::controller(\App\Http\Controllers\AddressController::class)
+        ->name('address.')
+        ->group(function(){
+
+            Route::post('/shop/update', 'update')->name('update');
+
+        });
+
+    Route::controller(\App\Http\Controllers\ShopController::class)
+        ->name('shop.')
+        ->group(function(){
+
+            Route::get('/shop/start', 'start')->name('start');
+
+        });
+
+    Route::controller(\App\Http\Controllers\Base\IdentityController::class)
+        ->name('identity.')
+        ->group(function(){
+
+            Route::post('/id/upload', 'upload' )->name('upload');
+
+        });
 
 
 //    Route::get('/verify/id', 'IDVerificationView')->name('id.verify');

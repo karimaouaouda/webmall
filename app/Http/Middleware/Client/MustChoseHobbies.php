@@ -15,14 +15,6 @@ class MustChoseHobbies
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $client = auth('client')->user();
-        if( $client == null ){
-            abort(403, "you don't authorized here");
-        }
-
-        if( $client->interests()->count() <= 0 ){
-            abort(403, "sorry dude");
-        }
 
         return $next($request);
     }

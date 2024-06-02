@@ -17,7 +17,9 @@ return new class extends Migration
             ->references('id')
             ->on('clients');
 
-            $table->string('payment_method');
+            $table->json('ship_to')->nullable();
+
+            $table->enum('status', \App\Enums\CommandStatus::values());
 
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('commands');
+        Schema::dropIfExists('commands');
     }
 };

@@ -11,7 +11,7 @@ class StoreCommandRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth('client')->check();
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreCommandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
         ];
     }
 }

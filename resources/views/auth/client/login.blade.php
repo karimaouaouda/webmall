@@ -43,7 +43,7 @@
             <div class='hidden lg:flex flex-col justify-between bg-primary lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
                 <div class="flex items-center justify-start space-x-3">
                     <span class="bg-black rounded-full w-8 h-8"></span>
-                    <a href="#" class="font-medium text-xl">Brand</a>
+                    <a href="#" class="font-medium text-xl">{{env('APP_NAME')}}</a>
                 </div>
                 <div class='space-y-5'>
                     <h1 class="lg:text-3xl xl:text-5xl xl:leading-snug font-extrabold">Enter your account and discover
@@ -54,7 +54,7 @@
                         class="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white">Create
                         account here</a>
                 </div>
-                <p class="font-medium">© 2022 Company</p>
+                <p class="font-medium">© 2022 Webmall Company</p>
             </div>
 
             <!-- Login -->
@@ -62,7 +62,7 @@
                 <div class="flex lg:hidden justify-between items-center w-full py-4">
                     <div class="flex items-center justify-start space-x-3">
                         <span class="bg-black rounded-full w-6 h-6"></span>
-                        <a href="#" class="font-medium text-lg">Brand</a>
+                        <a href="#" class="font-medium text-lg">{{env('APP_NAME')}}</a>
                     </div>
                     <div class="flex items-center space-x-2">
                         <span>Not a member? </span>

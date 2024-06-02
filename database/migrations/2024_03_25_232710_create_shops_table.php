@@ -21,7 +21,7 @@ return new class extends Migration {
                 ->uniqid();
 
             $table->string('name');
-            $table->tinyText('descriuption');
+            $table->tinyText('description');
             $table->string('logo');
             $table->string('cover');
             $table->enum('status', [

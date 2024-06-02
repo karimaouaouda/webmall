@@ -4,18 +4,19 @@ namespace App\Models\Shop;
 
 use App\Events\ProductRunningOut;
 use App\Models\Client\Command;
-use App\Models\ProductImages;
 use App\Models\Setup\SubCategory;
 use App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Karimaouaouda\LaravelRater\Ratable;
+use Karimaouaouda\LaravelRater\Traits\CanBeRated;
 
-class Product extends Model
+class Product extends Model implements Ratable
 {
     use HasFactory;
+    use CanBeRated;
 
     protected $fillable = [
         'sub_category_name',
@@ -26,8 +27,13 @@ class Product extends Model
         'price',
         'welcome_solde',
         'solde',
-        'image',
+        'images',
         'sensitive_qte'
+    ];
+
+
+    protected $casts = [
+        'images' => 'array'
     ];
 
 
@@ -68,10 +74,5 @@ class Product extends Model
     public function commands(): BelongsToMany
     {
         return $this->belongsToMany(Command::class, 'commands_products');
-    }
-
-    public function images(): HasMany
-    {
-        return $this->hasMany(ProductImages::class);
     }
 }

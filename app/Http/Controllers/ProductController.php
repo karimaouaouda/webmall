@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Shop\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -37,7 +39,14 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view("product.view", compact('product'));
+        $rates = $product->raters;
+
+        $ratesSum = DB::table('rates')
+                    ->where('target_type', '=', get_class($product) )
+                    ->where('target_id', '=', $product->id)
+                    ->sum('starts_count');
+
+        return view("product.view", compact('product', 'rates', 'ratesSum'));
     }
 
     /**

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rates', function (Blueprint $table) {
+        Schema::create('identities', function (Blueprint $table) {
             $table->id();
+            $table->string('identifiable_type');
+            $table->integer('identifiable_id');
+            $table->enum('status', ['processing', 'rejected', 'accepted']);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rates');
+        Schema::dropIfExists('identities');
     }
 };

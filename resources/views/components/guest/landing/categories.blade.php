@@ -40,15 +40,5 @@
                 <i class="bi bi-arrow-right text-2xl"></i>
             </a>
         </div>
-        <div class="whitespace-nowrap gap-3 h-fit overflow-y-hidden overflow-x-auto flex">
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-            <x-main.product-card/>
-        </div>
     </div>
 </section>

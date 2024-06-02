@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Filament\Seller\Pages;
+namespace App\Filament\Seller\Dynamic\Pages;
 
+use Filament\Forms\ComponentContainer;
+use Filament\Forms\Components\FileUpload;
 use Filament\Pages\Page;
-use Illuminate\Contracts\View\View;
 
 class Settings extends Page
 {
@@ -14,8 +15,11 @@ class Settings extends Page
 
     protected static ?int $navigationSort = 1;
 
-    public static function getRoutePath(): string
+
+    protected function getViewData(): array
     {
-        return \App\Filament\Seller\Resources\ProductResource\Pages\ListProducts::getRoutePath();
+        return [
+            'seller' => auth('seller')->user()
+        ];
     }
 }

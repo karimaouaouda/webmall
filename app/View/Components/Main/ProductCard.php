@@ -13,12 +13,11 @@ class ProductCard extends Component
      * Create a new component instance.
      */
 
-    
 
-    public function __construct(public Product $model)
+
+    public function __construct(public Product $product)
     {
-        
-        $this->model = $model;
+
     }
 
     /**

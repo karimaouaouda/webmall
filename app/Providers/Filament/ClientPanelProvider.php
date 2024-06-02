@@ -2,7 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Actions\Filament\Auth\Client\Login;
+use App\Actions\Filament\Auth\Client\Register;
 use App\Http\Middleware\Client\MustChoseHobbies;
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -36,6 +39,10 @@ class ClientPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->login(Login::class)
+            ->registration(Register::class)
+            ->emailVerification()
+            ->passwordReset()
             ->discoverWidgets(in: app_path('Filament/Client/Widgets'), for: 'App\\Filament\\Client\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,

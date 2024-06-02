@@ -2,27 +2,37 @@
 
 namespace App\Models\Auth;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Address;
+use App\Observers\SellerObserver;
+use App\Traits\CanVerifyIdentity;
+use App\Traits\HasAddress;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Shop;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Karimaouaouda\LaravelRater\Traits\CanRate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-
-class Seller extends Authenticatable implements FilamentUser
+#[ObservedBy([SellerObserver::class])]
+class Seller extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
+    use CanRate;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasAddress;
+    use CanVerifyIdentity;
 
     /**
      * The attributes that are mass assignable.
@@ -81,13 +91,6 @@ class Seller extends Authenticatable implements FilamentUser
     public function shop() : HasOne{
         return $this->hasOne(Shop::class);
     }
-
-    public function IDVerified(): bool
-    {
-        return $this->id_verified_at != null;
-    }
-
-
 
     //filament methods
     public function canAccessPanel(Panel $panel): bool

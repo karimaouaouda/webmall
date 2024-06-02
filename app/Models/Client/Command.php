@@ -14,7 +14,13 @@ class Command extends Model
 
     protected $fillable = [
         'client_id',
-        'payment_method',
+        'ship_to',
+        'status',
+    ];
+
+
+    protected $casts = [
+        'ship_to' => 'array'
     ];
 
     public function getNumberAttribute(){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -55,20 +55,20 @@
                                     </template>
                                     <template x-if="items.length">
                                         <div class="products p-2 flex flex-col gap-3">    
-                                            <template x-for="i in 3">
+                                            <template x-for="item in items">
                                                 <div class="product flex justify-start h-20 w-full overflow-hidden">
                                                     <div class="left h-full flex items-center justify-center">
-                                                        <img class="h-full w-20 rounded-md" src="{{ asset('assets/images/coca-logo.jpg') }}" alt="">
+                                                        <img class="h-full w-20 rounded-md" :src="'{{ asset('assets/products') }}' + '/' + item.slug + '.jpg' " alt="">
                                                     </div>
                                                     <div class="right flex-1 px-2 relative">
-                                                        <span class="font-semibold text-sm truncate block w-44">
-                                                            title here title here title here title here title here
+                                                        <span class="font-semibold text-sm truncate block w-44" x-text="item.slug">
+                                                            
                                                         </span>
-                                                        <p class="font-extralight max-h-[100px] text-xs truncate w-44 text-gray-400">
-                                                            description here description here description here description here description here
+                                                        <p class="font-extralight max-h-[100px] text-xs truncate w-44 text-gray-400" x-text="item.description">
+                                                            
                                                         </p>
-                                                        <span class="font-bold text-red-400 drop-shadow shadow-white">
-                                                            10024 da
+                                                        <span class="font-bold text-red-400 drop-shadow shadow-white" x-text="item.price">
+                                                            
                                                         </span>
                             
                                                         <div class="absolute bottom-1 right-2 bg-slate-200 flex
@@ -116,7 +116,7 @@
                             {{-- srearch bar : aliexpress like --}}
                             <div class="form-search relative py-[0.75rem] h-full w-7/12">
                                 <div class="wrapper w-full mt-2 h-full rounded-lg relative bg-white">
-                                    <form action="" class="h-full w-full">
+                                    <form action="{{route('search')}}" method="GET" class="h-full w-full">
                                         <input
                                             class="w-full h-full bg-transparent border-none outline-none focus:ring-0
                                     "

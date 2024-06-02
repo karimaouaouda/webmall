@@ -1,4 +1,6 @@
 import Alpine from "alpinejs";
 
 
-Alpine.start()
+window.onload = () => {
+    Alpine.start()
+}

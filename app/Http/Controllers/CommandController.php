@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use AllowDynamicProperties;
 use App\Enums\CommandStatus;
 use App\Models\Client\Command;
 use App\Http\Requests\StoreCommandRequest;
 use App\Http\Requests\UpdateCommandRequest;
 use App\Models\Shop\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CommandController extends Controller
+#[AllowDynamicProperties] class CommandController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->service = new \CommandService(auth('client')->user());
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,33 +30,85 @@ class CommandController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Product $product)
+    public function create(Request $request)
     {
-        return view('product.pay', compact('product'));
+        if( !auth('client')->check() ){
+            return redirect()->to(route('filament.client.auth.login'));
+        }
+        $source = 'cart';
+        if( $request->has('source') ){
+            $source = !in_array($request->input('source'), ['cart','view']) ?
+                                        $source :
+                                        $request->input('source');
+        }
+
+        $products = null;
+        $client = auth('client')->user();
+
+        switch ($source){
+            case 'cart' :
+
+                $products = auth('client')->user()->cart->items;
+
+                break;
+            case 'view':
+                if(
+                    !$request->has('pid') ||
+                    ( Product::find($request->input('pid')) === null)
+                ){
+                    abort(404);
+                }
+                $products = Product::where('id', '=', $request->input('pid'))->get();
+                break;
+            default:
+
+        }
+        return view('product.pay', compact('products', 'client'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Product $product)
+    public function store(StoreCommandRequest $request)
     {
-        $command = new Command([
-            'client_id' => auth('client')->user()->id,
-            'payment_method' => 'baridimob'
-        ]);
 
-        $command->save();
+        $client = auth('client')->user();
 
-        DB::table('commands_products')->insert([
-            'command_id' => $command->id,
-            'product_id' => $product->id,
-            'tracking_code' =>  env("SHIPPING_DEFAULT_CODE"),
-            'status' => CommandStatus::Processing,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $items = json_decode($request->items, true);
 
-        return redirect()->to(route('discover', ['domain' => 'www']));
+        $address = null;
+
+        if( $request->input('address_to_use') == 'request' ){
+            $address = $this->service->extractAddress($request);
+        }
+
+        DB::transaction(function() use ($client, $items){
+
+            $command = new Command([
+                'client_id' => $client->id,
+                'ship_to' => $address ? json_encode($address) : null,
+                'status' => CommandStatus::Processing
+            ]);
+
+            $command->save();
+
+            foreach ($items as $item){
+
+                DB::table('commands_products')
+                        ->insert([
+                            'command_id' => $command->id,
+                            'product_id' => $item['product_id'],
+                            'quantity' => $item['quantity'],
+                            'tracking_code' => 'xx-xxxxx',
+                            'sold' => Product::find($item['product_id'])->solde,
+                            'status' => CommandStatus::Processing->value,
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]);
+            }
+        }, 2);
+
+        return redirect()->to(route('discover'))->with('status', 'your command was successfully placed');
 
     }
 

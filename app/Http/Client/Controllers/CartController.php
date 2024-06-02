@@ -13,11 +13,27 @@ class CartController extends Controller
     protected CartService $service;
 
     public function __construct() {
-        $this->service = new CartService(auth("client")->user()->cart);
+        if( auth('client')->check() ){
+            $this->service = new CartService(auth("client")->user()->cart);
+        }
     }
 
-    public function items(){
+    public function items()
+    {
+
+        if( !auth('client')->check() ){
+            return response()->json([
+                'messsage' => 'you must be logged in'
+            ]);
+        }
+
         $client = auth('client')->user();
+
+        $p = Product::all()->first();
+
+        return response()->json([
+           'items' => [$p]
+        ], 200);
     }
 
 

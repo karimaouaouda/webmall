@@ -12,6 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::dropIfExists('commands_products');
+
         Schema::create('commands_products', function (Blueprint $table) {
             $table->foreignId('command_id')
                 ->references('id')
@@ -21,9 +22,13 @@ return new class extends Migration {
                 ->references('id')
                 ->on('products');
 
-            $table->string('tracking_code');
+            $table->integer('quantity', false);
 
-            $table->enum("status", CommandStatus::values());
+            $table->integer('sold')->default(0);
+
+            $table->string('tracking_code')->nullable();
+
+
 
             $table->timestamps();
 

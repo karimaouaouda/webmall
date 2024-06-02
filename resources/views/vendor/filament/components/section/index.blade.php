@@ -1,6 +1,8 @@
 @php
     use Filament\Support\Enums\Alignment;
     use Filament\Support\Enums\IconSize;
+
+    $isAside = fn() => false;
 @endphp
 
 @props([
@@ -19,6 +21,8 @@
     'iconColor' => 'gray',
     'iconSize' => IconSize::Large,
     'persistCollapsed' => false,
+    'bgColor' => 'bg-white',
+    'class' => ''
 ])
 
 @php
@@ -65,10 +69,10 @@
     @endif
     {{
         $attributes->class([
-            'fi-section',
+            'fi-section ' . $class,
             match ($aside) {
-                true => 'fi-aside grid grid-cols-1 items-start gap-x-6 gap-y-4 md:grid-cols-3',
-                false => 'rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10',
+                true => ' fi-aside grid grid-cols-1 items-start gap-x-6 gap-y-4 md:grid-cols-3',
+                false => ' rounded-xl shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 ' . ($bgColor ? $bgColor : 'bg-white'),
             },
         ])
     }}
@@ -92,7 +96,7 @@
                     <x-filament::icon
                         :icon="$icon"
                         @class([
-                            'fi-section-header-icon self-start',
+                            'fi-section-header-icon self-start ' . $class,
                             match ($iconColor) {
                                 'gray' => 'text-gray-400 dark:text-gray-500',
                                 default => 'fi-color-custom text-custom-500 dark:text-custom-400',

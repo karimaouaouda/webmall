@@ -1,4 +1,4 @@
-<div x-data="{{ $datac }}" class="shopping-cart relative z-50">
+<div x-data="{{ $datac }}" x-init="loadItems()" class="shopping-cart relative z-50">
     <div @click="show=!show" class="toggler text-center cursor-pointer">
         <i class="bi bi-{{ $icon }} text-lg text-slate-700 cursor-pointer"></i>
         <span class="block text-sm font-normal tracking-wide py-1 text-slate-700">

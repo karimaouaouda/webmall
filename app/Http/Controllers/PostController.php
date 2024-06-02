@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Community\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -63,4 +64,18 @@ class PostController extends Controller
     {
         //
     }
+
+    /**
+     * Publish a post
+     */
+    public function publish(Request $request)
+    {
+        $request->validate([
+            'video' => ['required', 'mimes:mp4'],
+            'description' => ['required'],
+            'tags' => ['required', 'array']
+        ]);
+    }
+
+
 }

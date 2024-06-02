@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    font-family: 'Roboto'!important;
+}
+
 [x-cloak] {
     display: none;
 }
@@ -51,7 +55,7 @@
 }
 
 .btn {
-    @apply p-2 cursor-pointer
+    @apply py-2 px-4 cursor-pointer
 }
 
 .toggler {
@@ -74,6 +78,10 @@ img {
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
+}
+
+.badge{
+    @apply py-2 px-4 text-lg uppercase w-fit mx-auto rounded-lg
 }
 
 /* Styles for the scrollbar thumb */

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47f0cedb115e4f5ff68bda05fb613e8b",
+    "content-hash": "5498c4783361e8f5918131199dfa3f09",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1354,6 +1354,89 @@
             "time": "2023-08-10T19:36:49+00:00"
         },
         {
+            "name": "dutchcodingcompany/filament-socialite",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DutchCodingCompany/filament-socialite.git",
+                "reference": "76c9ce61fa63371a7c216565fb8dfa53511ab7bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DutchCodingCompany/filament-socialite/zipball/76c9ce61fa63371a7c216565fb8dfa53511ab7bc",
+                "reference": "76c9ce61fa63371a7c216565fb8dfa53511ab7bc",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0.9",
+                "illuminate/contracts": "^10.0|^11.0",
+                "laravel/socialite": "^5.5",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "larastan/larastan": "^2.9",
+                "nunomaduro/collision": "^7.0|^8.1",
+                "orchestra/testbench": "^8.0|^9.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "suggest": {
+                "owenvoke/blade-fontawesome": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DutchCodingCompany\\FilamentSocialite\\FilamentSocialiteServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentSocialite": "DutchCodingCompany\\FilamentSocialite\\Facades\\FilamentSocialite"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DutchCodingCompany\\FilamentSocialite\\": "src",
+                    "DutchCodingCompany\\FilamentSocialite\\Tests\\": "tests",
+                    "DutchCodingCompany\\FilamentSocialite\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Boers",
+                    "email": "m@rcoboe.rs",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Janssen",
+                    "email": "dododedodonl@thor.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Bram Raaijmakers",
+                    "email": "bram@dutchcodingcompany.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Social login for Filament through Laravel Socialite",
+            "homepage": "https://github.com/dutchcodingcompany/filament-socialite",
+            "keywords": [
+                "dutchcodingcompany",
+                "filament-socialite",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/DutchCodingCompany/filament-socialite/issues",
+                "source": "https://github.com/DutchCodingCompany/filament-socialite/tree/1.4.1"
+            },
+            "time": "2024-03-20T12:32:45+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "4.0.2",
             "source": {
@@ -2568,6 +2651,55 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "karimaouaouda/laravel-rater",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/karimaouaouda/laravel-rater.git",
+                "reference": "f739f480a297a0b03eae00c7d7607fb9de984a46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/karimaouaouda/laravel-rater/zipball/f739f480a297a0b03eae00c7d7607fb9de984a46",
+                "reference": "f739f480a297a0b03eae00c7d7607fb9de984a46",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Karimaouaouda\\LaravelRater\\KarimRaterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Karimaouaouda\\LaravelRater\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Karim Aouaouda",
+                    "email": "karimaouaouda.officiel@gmail.com",
+                    "role": "Developper"
+                }
+            ],
+            "description": "this is a simple implementation to rating system with laravel",
+            "keywords": [
+                "Rating",
+                "karimaouaouda"
+            ],
+            "support": {
+                "issues": "https://github.com/karimaouaouda/laravel-rater/issues",
+                "source": "https://github.com/karimaouaouda/laravel-rater/tree/v1.0.1"
+            },
+            "time": "2024-01-24T19:30:23+00:00"
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",

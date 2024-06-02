@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Auth\Seller;
 use App\Models\Shop\Product;
 
 use Illuminate\Auth\Access\Response;

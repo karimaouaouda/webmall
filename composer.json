@@ -7,9 +7,11 @@
     "require": {
         "php": "^8.2",
         "cryptomus/api-php-sdk": "^1.0",
+        "dutchcodingcompany/filament-socialite": "^1.4",
         "filament/filament": "^3.2",
         "gemini-api-php/client": "^1.4",
         "guava/filament-nested-resources": "^1.0",
+        "karimaouaouda/laravel-rater": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.0",
         "laravel/reverb": "@beta",

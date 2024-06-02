@@ -8,6 +8,8 @@ use App\Http\Requests\StoreClientRequest;
 use App\Models\Auth\Client;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
@@ -89,7 +91,7 @@ class ClientController extends Controller
      */
     public function create(Request $request)
     {
-        
+
         return view("auth.client.login", ["guard" => "client"]);
     }
 
@@ -154,7 +156,7 @@ class ClientController extends Controller
     }
 
     //social auth
-    public function socialRedirect($domain, $service)
+    public function socialRedirect($service)
     {
         $this->validateService($service);
 
@@ -166,7 +168,7 @@ class ClientController extends Controller
     }
 
 
-    public function socialCallback($domain, $service, Request $request)
+    public function socialCallback($service, Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $this->validateService($service);
 
@@ -179,8 +181,6 @@ class ClientController extends Controller
         } catch (\Throwable $th) {
             $user = Socialite::driver($service)->stateless()->user();
         }
-
-        Authenticate::class;
 
         $targetUser = Client::updateOrCreate([
             $service . "_id" => $user->id,
@@ -201,9 +201,16 @@ class ClientController extends Controller
 
         $this->guard->login($targetUser);
 
+        if($this->guard->user()->email_verified_at == null){
+            $this->guard->user()->email_verified_at = now();
+            $this->guard->user()->save();
+        }
+
+
+
         return redirect('/dashboard');
 
-        
+
     }
 
     private function validateService($service = null)

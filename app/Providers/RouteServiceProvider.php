@@ -36,6 +36,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware("web")
             ->group(base_path('routes/seller.php'));
 
-        
+        Route::domain('community.webmall.test')
+            ->name('community.')
+            ->middleware('web')
+            ->group(base_path('routes/community.php'));
+
+        Route::domain('www.webmall.test')
+            ->middleware('web')
+            ->group(base_path('routes/general.php'));
+
     }
 }

@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('slug');
             $table->tinyText('description');
             $table->float('price');
+            $table->json('images');
             $table->tinyInteger('welcome_solde');
             $table->integer('available_qte', unsigned: true);
             $table->tinyInteger('solde', unsigned:true)->default(0);
             $table->integer('sensitive_qte', unsigned:true);
+            $table->string('video_path')->nullable();
             $table->timestamps();
 
             $table->foreign('sub_category_name')->references('name')->on('sub_categories')

@@ -10,7 +10,7 @@ use Guava\FilamentNestedResources\Concerns\NestedPage;
 
 class ListProducts extends ListRecords
 {
-    
+
     protected static string $resource = ProductResource::class;
 
     protected function getHeaderActions(): array
@@ -24,6 +24,7 @@ class ListProducts extends ListRecords
     {
         return [
             ProductSells::make(),
+            ProductResource\Widgets\ProductAddedToCart::make(),
         ];
     }
 }

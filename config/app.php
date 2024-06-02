@@ -15,6 +15,17 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'sellr' => [
+        'domain' => 'https://seller.webmall.test',
+    ],
+
+
+    'reserved' => [
+        'subdomains' => [
+            "www", 'seller', 'community', 'admin', 'business'
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
