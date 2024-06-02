@@ -8,6 +8,7 @@ use App\Models\Client\Command;
 use App\Http\Requests\StoreCommandRequest;
 use App\Http\Requests\UpdateCommandRequest;
 use App\Models\Shop\Product;
+use App\Services\CommandService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 
     public function __construct()
     {
-        $this->service = new \CommandService(auth('client')->user());
+        $this->service = new CommandService(auth('client')->user());
     }
 
     /**
@@ -59,6 +60,12 @@ use Illuminate\Support\Facades\DB;
                     abort(404);
                 }
                 $products = Product::where('id', '=', $request->input('pid'))->get();
+
+                foreach ($products as $product){
+                    $product->pivot = [
+                        'quantity' => $request->input('qte') ?? 1,
+                    ];
+                }
                 break;
             default:
 
@@ -74,7 +81,11 @@ use Illuminate\Support\Facades\DB;
 
         $client = auth('client')->user();
 
-        $items = json_decode($request->items, true);
+        $items = is_array($request->items) ? $request->items : json_decode($request->items, true);
+
+        $items = array_map(function($item){
+            return json_decode($item, true);
+        }, $items);
 
         $address = null;
 
@@ -82,7 +93,7 @@ use Illuminate\Support\Facades\DB;
             $address = $this->service->extractAddress($request);
         }
 
-        DB::transaction(function() use ($client, $items){
+        DB::transaction(function() use ($client, $items, $address){
 
             $command = new Command([
                 'client_id' => $client->id,
@@ -99,16 +110,18 @@ use Illuminate\Support\Facades\DB;
                             'command_id' => $command->id,
                             'product_id' => $item['product_id'],
                             'quantity' => $item['quantity'],
-                            'tracking_code' => 'xx-xxxxx',
                             'sold' => Product::find($item['product_id'])->solde,
-                            'status' => CommandStatus::Processing->value,
+                            //'status' => CommandStatus::Processing->value,
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);
             }
         }, 2);
 
-        return redirect()->to(route('discover'))->with('status', 'your command was successfully placed');
+        return response()->json([
+            'message' => 'command placed successfully',
+            'status' => 'success'
+        ], 200);
 
     }
 

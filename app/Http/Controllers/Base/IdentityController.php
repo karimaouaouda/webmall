@@ -15,9 +15,22 @@ class IdentityController extends Controller
     public function upload(Request $request): RedirectResponse
     {
 
-        $request->validate([
-            'id_card' => ['required', 'mimes:' . implode('.', ['jpg', 'png', 'jpeg', 'jfif'])]
-        ]);
+        if( !$request->has('id_card') || $request->file('id_card') == null ){
+            return back()->withErrors([
+                'the id card image must be present'
+            ]);
+        }
+        $file = $request->file('id_card');
+
+        $exts = ['png', 'jpg', 'jfif'];
+
+        if( ! in_array($file->getClientOriginalExtension() , $exts) ){
+            return back()->withErrors([
+                'the id card image must be one of types : ' . implode(",", $exts)
+            ]);
+        }
+
+        $filename = $file->getClientOriginalName();
 
         $user = null;
         $g = null;
@@ -29,15 +42,13 @@ class IdentityController extends Controller
         }
 
         $id_path = ids_path($g);
-        $file = $request->file('id_card');
 
-
-
-        $path = Storage::putFile($id_path, $file );
+        $path = Storage::disk('public')
+                ->putFile($id_path, $file);
 
         $user->storeID($path);
 
-        return back();
+        return back()->with('status', 'successfull added id card');
     }
 
 

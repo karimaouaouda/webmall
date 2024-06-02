@@ -1,5 +1,6 @@
 import Alpine from "alpinejs";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const base_url = import.meta.env.VITE_APP_URL
 
@@ -82,8 +83,52 @@ Alpine.data('payData', function () {
             })
 
 
-            axios.post('/checkout', formToSend)
-                .then(response => console.log(response))
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: "btn btn-success",
+                  cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+              });
+              swalWithBootstrapButtons.fire({
+                title: "confirm command?",
+                text: "are you sure you want to proceed in command",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, proceed!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/checkout', formToSend)
+                        .then(response => {
+                            swalWithBootstrapButtons.fire({
+                                title: "command placed!",
+                                text: "your command placed.",
+                                icon: "success"
+                              });
+                        }).catch(err => {
+                            Swal.fire({
+                                title : 'error was occured',
+                                text : err,
+                                icon : 'error'
+                            })
+                        })
+                    
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    icon: "error"
+                  });
+                }
+              });
+
+
+            
         }
     }
 });

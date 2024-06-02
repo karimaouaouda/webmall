@@ -22,6 +22,7 @@ return new class extends Migration {
                 ->references('id')
                 ->on('products');
 
+
             $table->integer('quantity', false);
 
             $table->integer('sold')->default(0);

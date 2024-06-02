@@ -70,7 +70,7 @@
                 </div>
             </div>
         @else
-            
+
             @if( $seller->identity != null && $seller->identity->status  == 'processing' )
             <div class="w-full py-4 text-center text-2xl text-sky-500">
                 <i class="bi bi-stop-watch mx-2"></i>
@@ -86,24 +86,23 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
-    
+
                     <h2 class="mt-4 text-xl font-medium text-gray-700 tracking-wide" x-text="name"></h2>
-    
+
                     <p class="mt-2 text-gray-500 tracking-wide" x-show="!uploaded">Upload or darg & drop your file PNG or JPG. </p>
-    
+
                     <input @change="uploaded = $el.files.length > 0;name = uploaded ? $el.files[0].name : 'ID Card Image' " name="id_card" id="id_card" type="file" class="hidden" />
                 </div>
-    
-    
+
+
                 <button class="btn bg-slate-600 text-white hover:bg-slate-700 rounded-lg">
-                    save
+                    upload
                 </button>
             </form>
             @endif
 
         @endif
 
-        @vite('resources/js/alpine.js')
 
     </x-filament::section>
 </x-filament-panels::page>

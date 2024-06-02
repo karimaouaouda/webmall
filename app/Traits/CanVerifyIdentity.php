@@ -14,7 +14,7 @@ trait CanVerifyIdentity
 
     public function hasVerifiedID(): bool
     {
-        return $this->id_verified_at != null;
+        return $this->id_verified_at != null ;
     }
 
     public function identity(): MorphOne
@@ -24,11 +24,11 @@ trait CanVerifyIdentity
 
     public function storeID(string $path): void
     {
-        $class = new \ReflectionClass($this);
+        $class = get_class($this);
 
         $attrs = [
-            'identifiable_type' => $class->getNamespaceName(),
-            'identifiable_id' => $this->id,
+            'Identifiable_type' => $class,
+            'Identifiable_id' => $this->id,
             'id_path' => $path,
             'status' => 'processing'
         ];

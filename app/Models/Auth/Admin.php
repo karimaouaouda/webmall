@@ -4,7 +4,10 @@ namespace App\Models\Auth;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Administration\Ban;
+use App\Models\Setup\Identity;
+use App\Models\Shop\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,5 +72,15 @@ class Admin extends Authenticatable
     public function bans(): MorphMany
     {
         return $this->morphMany(Ban::class, 'bannable');
+    }
+
+    public function reviewedShops(): HasMany
+    {
+        return $this->hasMany(Document::class, 'processed_by');
+    }
+
+    public function reviewedIdentities(): HasMany
+    {
+        return $this->hasMany(Identity::class, 'processed_by');
     }
 }

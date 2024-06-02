@@ -8,9 +8,11 @@ use App\Models\Shop\Product;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -74,6 +76,19 @@ class ProductResource extends Resource
                                 ->required(),
                         ]),
 
+                    Wizard\Step::make('options')
+                        ->schema([
+                            Repeater::make('options')
+                                ->label('product options')
+                                ->schema([
+                                    TextInput::make('option_name')
+                                        ->label('option'),
+
+                                    TextInput::make('option_value')
+                                        ->label('value')
+                                ])
+                        ]),
+
                     Wizard\Step::make('media appearence')
                         ->schema([
                             FileUpload::make('video_path')
@@ -108,6 +123,11 @@ class ProductResource extends Resource
                                 ->relationship('subCategory', 'name')
                                 ->searchable()
                                 ->required(),
+
+                            TagsInput::make('tags')
+                                ->label('product tags')
+                                ->splitKeys([',', '.', 'Tab', 'Enter', '/', '-'])
+                                ->nullable(),
                         ]),
                 ])
                     ->label('create your product')

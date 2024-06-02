@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('slug');
             $table->tinyText('description');
             $table->float('price');
+            $table->json('options')->nullable();
             $table->json('images');
-            $table->tinyInteger('welcome_solde');
+            $table->json('tags')->nullable();
+            $table->tinyInteger('welcome_solde')->nullable();
             $table->integer('available_qte', unsigned: true);
             $table->tinyInteger('solde', unsigned:true)->default(0);
             $table->integer('sensitive_qte', unsigned:true);

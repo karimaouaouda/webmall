@@ -28,12 +28,16 @@ class Product extends Model implements Ratable
         'welcome_solde',
         'solde',
         'images',
-        'sensitive_qte'
+        'sensitive_qte',
+        'tags',
+        'options'
     ];
 
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'tags' => 'array',
+        'options' => 'array'
     ];
 
 

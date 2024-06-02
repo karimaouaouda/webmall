@@ -48,13 +48,12 @@ Route::controller(\App\Http\Controllers\Seo\SearchController::class)
 
 Route::controller(CommandController::class)
     ->name('command.')
+    ->middleware(['auth:client'])
     ->group(function(){
 
         Route::get('checkout/', 'create')->name('pay');
 
         Route::post('checkout/', 'store');
-
-        Route::post('/product/buy/{product}', 'store');
 
     });
 

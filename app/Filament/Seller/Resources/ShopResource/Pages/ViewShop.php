@@ -2,11 +2,15 @@
 
 namespace App\Filament\Seller\Resources\ShopResource\Pages;
 
+use App\Enums\ShopStatus;
 use App\Filament\Seller\Resources\ShopResource;
+use App\Models\Shop\Document;
 use Filament\Actions;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -19,27 +23,41 @@ class ViewShop extends ViewRecord
         return [
             Actions\CreateAction::make('verify shop now !')
                 ->label('verify shop now !')
-                ->icon("heroicon-o-arrow-right")
-                ->steps([
-                    Step::make('shop illegal information')
-                        ->schema([
-                            TextInput::make('serial_number')
-                                ->label('serial number')
-                                ->required(),
+                ->form([
+                    Wizard::make([
+                        Step::make('informations')
+                            ->schema([
+                                Hidden::make('shop_unique_name')
+                                    ->default(auth('seller')->user()->shop->unique_name)
+                                    ->required(),
 
-                            DatePicker::make('start_date')
-                                ->label('business start in')
-                                ->required()
-                        ]),
+                                Hidden::make('status')
+                                    ->default(ShopStatus::Processing->value)
+                                    ->required(),
 
-                    Step::make('shop agreement picture')
-                        ->label('shop agreement from algerien governement')
-                        ->schema([
-                            FileUpload::make('agreement')
-                                ->image()
-                                ->required(),
-                        ])
+                                TextInput::make('serial_number')
+                                    ->label('serial number')
+                                    ->required(),
+
+                                DatePicker::make('starts_at')
+                                    ->label('business start in')
+                                    ->required()
+                            ]),
+
+                        Step::make('agreement files')
+                            ->schema([
+                                FileUpload::make('document')
+                                    ->disk('public')
+                                    ->directory(function(){
+                                        $seller_id = auth('seller')->id();
+                                        return "sellers/seller_{$seller_id}/shop/documents";
+                                    })
+                                    ->required()
+                            ])
+                    ])
                 ])
+                ->icon("heroicon-o-arrow-right")
+                ->model(Document::class)
         ];
     }
 }

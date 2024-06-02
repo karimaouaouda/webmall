@@ -3,8 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Auth\Seller;
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Contracts\Auth\Authenticatable as User;
 
 class SellerPolicy
 {
@@ -13,7 +12,7 @@ class SellerPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +20,7 @@ class SellerPolicy
      */
     public function view(User $user, Seller $seller): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +28,7 @@ class SellerPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +36,7 @@ class SellerPolicy
      */
     public function update(User $user, Seller $seller): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +44,7 @@ class SellerPolicy
      */
     public function delete(User $user, Seller $seller): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +52,7 @@ class SellerPolicy
      */
     public function restore(User $user, Seller $seller): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +60,6 @@ class SellerPolicy
      */
     public function forceDelete(User $user, Seller $seller): bool
     {
-        //
+        return true;
     }
 }

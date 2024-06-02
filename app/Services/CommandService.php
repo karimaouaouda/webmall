@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Services;
 
 use App\Http\Requests\StoreCommandRequest;
 use App\Models\Auth\Client;

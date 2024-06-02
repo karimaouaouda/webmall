@@ -15,7 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('identifiable_type');
             $table->integer('identifiable_id');
-            $table->enum('status', ['processing', 'rejected', 'accepted']);
+            $table->string('id_path');
+
+            $table->foreignId('processed_by')->nullable()
+                ->references('id')
+                ->on('admins');
+
+            $table->text('admin_note')->nullable();
+
+
+            $table->enum('status', \App\Enums\IdentityStatus::values());
             $table->timestamps();
         });
     }

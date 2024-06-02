@@ -33,12 +33,16 @@
 
                     <x-parts.step :completed="$seller->hasVerifiedID()" icon="person-bounding-box" action="https://seller.webmall.test/dashboard/settings#id">
                         <x-slot:title> 
-                            verify your identity
+                            {{ $seller->shop->document->status == 'processing' ? 'we are procesing your identity' : 'verify your identity'  }}
                         </x-slot:title>
 
                         <x-slot:description>
+                            @if( $seller->shop->document->status == 'processing' )
+                                after we give you the result you will find this as completed
+                            @else
                             in order to create your shop you must verify your identity to ensure you are eligible for have business,
                             don't worry, any document you share with us will be deletted after 30 days of processing, and will be secretly stored
+                            @endif
                         </x-slot:description>
                     </x-parts.step>
 
