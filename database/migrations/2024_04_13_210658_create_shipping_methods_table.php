@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shipping_methods', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('prefix')->nullable();
+            $table->string('company_name');
             $table->text("description")->nullable();
             $table->string('logo', 2048)->nullable();
             $table->timestamps();
+
+            $table->primary('company_name');
         });
     }
 

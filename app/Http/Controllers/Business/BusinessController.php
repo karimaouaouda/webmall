@@ -37,29 +37,7 @@ class BusinessController extends Controller
 //            ]);
 //        }
 
-        if( ! $seller->IDVerified() ){
-            return view('business.create', [
-                'step' => 'id_verification'
-            ]);
-        }
-
-        if( !$seller->has_shop ){
-            return view('business.create', [
-                'step' => 'creation'
-            ]);
-        }
-
-        $shop = $seller->shop;
-        $shop_status = $shop->status;
-
-        if(! $shop_status != 'published'){
-            return view('seller.shop.status', [
-                'step' => 'processing',
-                'shop' => $shop
-            ]);
-        }
-
-        return redirect()->to('/dashboard');
+        return redirect()->to('https://selller.webmall.test/dashboard');
     }
 
 }

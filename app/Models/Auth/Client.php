@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Client\Cart;
 use App\Models\Client\Command;
 use App\Models\Client\Interest;
+use App\Models\Message;
 use App\Models\Setup\SubCategory;
 use App\Models\Shop;
 use App\Observers\ClientObserver;
@@ -117,5 +118,10 @@ class Client extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(Shop\Product::class, 'favorites');
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }

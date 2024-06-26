@@ -28,15 +28,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Authenticate::redirectUsing(function(\Illuminate\Http\Request $request){
             if($request->subdomain() == 'business'){
-                return route('seller.register');
+                return route('filament.seller.auth.login');
             }
-            return route("client.login");
+            return route("filament.client.auth.login");
         });
         AuthenticationException::redirectUsing(function(\Illuminate\Http\Request $request){
             if($request->subdomain() == 'business'){
-                return route('seller.register');
+                return route('filament.seller.auth.login');
             }
-            return route("client.login");
+            return route("filament.client.auth.login");
         });
 
         /* if(! $this->hasSubDomain()){

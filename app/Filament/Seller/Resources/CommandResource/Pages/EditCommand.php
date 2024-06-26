@@ -4,9 +4,16 @@ namespace App\Filament\Seller\Resources\CommandResource\Pages;
 
 use App\Filament\Seller\Resources\CommandResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Resources\Pages\EditRecord;
 
-class ViewCommand extends ViewRecord
+class EditCommand extends EditRecord
 {
     protected static string $resource = CommandResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
 }

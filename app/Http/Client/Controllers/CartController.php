@@ -6,6 +6,7 @@ use App\Models\Client\Cart;
 use App\Models\Shop\Product;
 use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -16,6 +17,29 @@ class CartController extends Controller
         if( auth('client')->check() ){
             $this->service = new CartService(auth("client")->user()->cart);
         }
+    }
+
+    public function addItem(Request $request){
+        if( !auth('client')->check() ){
+            return response()->json([
+                'message' => 'error',
+            ]);
+        }
+
+        $client = auth('client')->user();
+
+        $cart = $client->cart;
+
+        DB::table('cart_items')
+                ->insert([
+                    'cart_id' => $cart->id,
+                    'product_id' => $request->input('product_id'),
+                    'quantity' => 1
+                ]);
+
+        return response()->json([
+            'message' => 'added successfuly'
+        ]);
     }
 
     public function items()
@@ -29,10 +53,10 @@ class CartController extends Controller
 
         $client = auth('client')->user();
 
-        $p = Product::all()->first();
+        $products = $client->cart->items;
 
         return response()->json([
-           'items' => [$p]
+           'items' => $products
         ], 200);
     }
 

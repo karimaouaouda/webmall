@@ -87,27 +87,36 @@ use Illuminate\Support\Facades\DB;
             return json_decode($item, true);
         }, $items);
 
+        $commands = $this->service->resolveCommands($items);
+
+        //dd($commands);
+
         $address = null;
 
         if( $request->input('address_to_use') == 'request' ){
             $address = $this->service->extractAddress($request);
         }
 
-        DB::transaction(function() use ($client, $items, $address){
+        DB::transaction(function() use ($client, $address, $commands){
 
-            $command = new Command([
-                'client_id' => $client->id,
-                'ship_to' => $address ? json_encode($address) : null,
-                'status' => CommandStatus::Processing
-            ]);
 
-            $command->save();
 
-            foreach ($items as $item){
+            foreach ($commands as $command){
 
-                DB::table('commands_products')
+                $cmd = new Command([
+                    'client_id' => $client->id,
+                    'shop_unique_name' => $command['shop_unique_name'],
+                    'ship_to' => $address ? json_encode($address) : null,
+                    'status' => CommandStatus::Processing
+                ]);
+
+                $cmd->save();
+
+                foreach ($command['products'] as $item){
+
+                    DB::table('commands_products')
                         ->insert([
-                            'command_id' => $command->id,
+                            'command_id' => $cmd->id,
                             'product_id' => $item['product_id'],
                             'quantity' => $item['quantity'],
                             'sold' => Product::find($item['product_id'])->solde,
@@ -115,7 +124,15 @@ use Illuminate\Support\Facades\DB;
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);
+                }
+
             }
+
+
+
+
+
+
         }, 2);
 
         return response()->json([

@@ -44,7 +44,11 @@ class ViewSeller extends ViewRecord
                     \Filament\Forms\Components\Actions::make([
                         Action::make('view id card')
                             ->openUrlInNewTab()
-                            ->url( env('APP_URL') . '/storage/'. $this->record->identity->id_path ),
+                            ->url( env('APP_URL') . '/storage/'. (
+                                $this->record->identity ?
+                                    $this->record->identity->id_path :
+                                    '')
+                            ),
                     ]),
 
                     Placeholder::make('separator')

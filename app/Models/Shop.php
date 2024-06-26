@@ -50,7 +50,7 @@ class Shop extends Model
 
     public function isPublished() : bool
     {
-        return $this->document->status == ShopStatus::Accepted->value;
+        return $this->document ?  $this->document->status == ShopStatus::Accepted->value : false;
     }
 
     public function getAcceptedAttribute(){

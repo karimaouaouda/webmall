@@ -9,6 +9,15 @@
     font-family: 'Roboto'!important;
 }
 
+
+.scroll-y{
+    @apply overflow-x-hidden overflow-y-auto
+}
+
+.message-wrapper{
+    @apply w-full h-fit pb-2  p-2 overflow-visible
+}
+
 [x-cloak] {
     display: none;
 }

@@ -23,6 +23,7 @@ class ViewShop extends ViewRecord
         return [
             Actions\CreateAction::make('verify shop now !')
                 ->label('verify shop now !')
+                ->visible(auth('seller')->user()->shop->document == null)
                 ->form([
                     Wizard::make([
                         Step::make('informations')

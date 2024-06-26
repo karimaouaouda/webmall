@@ -17,11 +17,26 @@ return new class extends Migration
             ->references('id')
             ->on('clients');
 
+            $table->string('shop_unique_name');
+
             $table->json('ship_to')->nullable();
 
             $table->enum('status', \App\Enums\CommandStatus::values());
 
+            $table->string('tracking_code')->nullable();
+
+            $table->string('shipping_with');
+
             $table->timestamps();
+
+
+            $table->foreign('shop_unique_name')
+                ->references('unique_name')
+                ->on('shops');
+
+            $table->foreign('shipping_with')
+                ->references('company_name')
+                ->on('shipping_methods');
         });
     }
 

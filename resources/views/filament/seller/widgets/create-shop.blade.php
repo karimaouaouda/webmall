@@ -33,11 +33,11 @@
 
                     <x-parts.step :completed="$seller->hasVerifiedID()" icon="person-bounding-box" action="https://seller.webmall.test/dashboard/settings#id">
                         <x-slot:title> 
-                            {{ $seller->shop->document->status == 'processing' ? 'we are procesing your identity' : 'verify your identity'  }}
+                            {{ ( ($seller->has_shop && $seller->shop->document)? $seller->shop->document->status == 'processing' : false) ? 'we are procesing your identity' : 'verify your identity'  }}
                         </x-slot:title>
 
                         <x-slot:description>
-                            @if( $seller->shop->document->status == 'processing' )
+                            @if( ($seller->has_shop && $seller->shop->document)? $seller->shop->document->status == 'processing' : false )
                                 after we give you the result you will find this as completed
                             @else
                             in order to create your shop you must verify your identity to ensure you are eligible for have business,
@@ -56,7 +56,7 @@
                         </x-slot:description>
                     </x-parts.step>
 
-                    <x-parts.step :completed="false" icon="file-earmark-arrow-up" action="https://seller.webmall.test/dashboard/shops/{{$seller->has_shop ? $seller->shop->id : ''}}/verify">
+                    <x-parts.step :completed="false" icon="file-earmark-arrow-up" action="https://seller.webmall.test/dashboard/shops/{{$seller->has_shop ? $seller->shop->unique_name : ''}}/view">
                         <x-slot:title> 
                             upload business documents
                         </x-slot:title>

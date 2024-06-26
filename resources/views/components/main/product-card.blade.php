@@ -1,4 +1,4 @@
-<div
+<div x-data="productData"
     class="relative mx-1 my-2 shrink-0 hover:scale-[1.01] duration-150 ease-in-out flex w-full max-w-xs flex-col overflow-hidden rounded-lg  border-gray-100 bg-white shadow-md">
     <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
         <img class="object-cover mx-auto"
@@ -49,7 +49,7 @@
                 preview
             </a>
             @auth('client')
-            <button data-target="{{ $product->id }}"
+            <button @click="addToCart" x-init="item = JSON.parse($el.dataset.target)" data-target="{{ $product }}"
                 class="addToCart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 <i class="bi bi-cart3 text-xl mx-2 -mt-1"></i>
                 Add to cart

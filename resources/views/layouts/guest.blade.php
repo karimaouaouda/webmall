@@ -54,23 +54,25 @@
                                         </div>
                                     </template>
                                     <template x-if="items.length">
-                                        <div class="products p-2 flex flex-col gap-3">    
+                                        <div class="products p-2 flex flex-col gap-3">
                                             <template x-for="item in items">
                                                 <div class="product flex justify-start h-20 w-full overflow-hidden">
+
                                                     <div class="left h-full flex items-center justify-center">
                                                         <img class="h-full w-20 rounded-md" :src="'{{ asset('assets/products') }}' + '/' + item.slug + '.jpg' " alt="">
                                                     </div>
+
                                                     <div class="right flex-1 px-2 relative">
                                                         <span class="font-semibold text-sm truncate block w-44" x-text="item.slug">
-                                                            
+
                                                         </span>
                                                         <p class="font-extralight max-h-[100px] text-xs truncate w-44 text-gray-400" x-text="item.description">
-                                                            
+
                                                         </p>
                                                         <span class="font-bold text-red-400 drop-shadow shadow-white" x-text="item.price">
-                                                            
+
                                                         </span>
-                            
+
                                                         <div class="absolute bottom-1 right-2 bg-slate-200 flex
                                                              justify-around items-center h-8 ronded-full w-16 rounded-full">
                                                             <i class="bi bi-dash cursor-pointer hover:bg-gray-300 ease-in-out duration-300 rounded-full w-6 h-6 flex items-center justify-center"></i>
@@ -78,15 +80,16 @@
                                                             <i class="bi bi-plus cursor-pointer hover:bg-gray-300 ease-in-out duration-300 rounded-full w-6 h-6 flex items-center justify-center"></i>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </template>
                                         </div>
-                                        
+
                                     </template>
 
                                     <x-slot:footer>
-                                        <a href="#" class="btn bg-sky-400 text-white hover:bg-sky-500 duration-300 ease-in-out">
-                                            see in cart page <i class="bi bi-arrow-right"></i>
+                                        <a href="{{ route('command.pay', ['source' => 'cart'])  }}" class="btn bg-sky-400 text-white hover:bg-sky-500 duration-300 ease-in-out">
+                                            proceed to checkout <i class="bi bi-arrow-right"></i>
                                         </a>
                                     </x-slot:footer>
                                 </x-parts.dropdown>
@@ -95,20 +98,20 @@
                                         My Account
                                     </x-slot:label>
                                     <x-slot:header>
-                                        
+
                                     </x-slot:header>
                                     <x-slot:empty-message>
                                         no message
                                     </x-slot:empty-message>
 
-                                    <x-parts.items :list="config('lists.account.default.guest')">
-                                        
-                                    </x-parts.items> 
+                                    @if(auth('client')->check())
+                                    <x-parts.items :list="config('lists.account.default.auth')"/>
+                                    @else
+                                    <x-parts.items :list="config('lists.account.default.guest')"/>
+                                    @endif
 
                                     <x-slot:footer>
-                                        <a href="#" class="btn bg-sky-400 text-white hover:bg-sky-500 duration-300 ease-in-out">
-                                            see in cart page <i class="bi bi-arrow-right"></i>
-                                        </a>
+
                                     </x-slot:footer>
                                 </x-parts.dropdown>
                             </div>

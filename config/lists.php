@@ -13,25 +13,35 @@ return [
 
                 'items' => [
                     [
+                        'icon' => 'person',
+                        'label' => 'dashboard',
+                        'url' => 'https://www.webmall.test/dashboard',
+                    ],
+                    [
                         'icon' => 'person-circle',
                         'label' => 'profile',
-                         
+                        'url' => 'https://www.webmall.test/dashboard',
+                    ],
+                    [
+                        'icon' => 'boxes',
+                        'label' => 'my commands',
+                        'url' => 'https://www.webmall.test/dashboard/commands',
                     ]
                 ]
             ],
 
             'guest' => [
                 'icons' => false,
-                
+
                 'items' => [
                     [
                         'label' => 'register',
-                        'url' => 'https://client.webmall.test/register',
+                        'url' => 'https://www.webmall.test/dashboard/register',
                         'icon' => 'person-plus'
                     ],
                     [
                         'label' => 'login',
-                        'url' => 'https://client.webmall.test/login',
+                        'url' => 'https://www.webmall.test/dashboard/login',
                         'icon' => 'box-arrow-in-right'
                     ]
                 ]

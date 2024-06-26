@@ -17,4 +17,16 @@ trait Enum{
 
         return $values;
     }
+
+
+    public static function assoc(): array
+    {
+        $arr = [];
+
+        foreach (self::values() as $value){
+            $arr[$value] = $value;
+        }
+
+        return $arr;
+    }
 }

@@ -78,7 +78,8 @@ Alpine.data('payData', function () {
             this.items.forEach(item => {
                 formToSend.append('items[]', JSON.stringify({
                     'product_id' : item.id,
-                    'quantity' : item.pivot.quantity
+                    'quantity' : item.pivot.quantity,
+                    'shop_unique_name' : item.shop_unique_name
                 }))
             })
 

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::controller(MainController::class)->group(function () {
     Route::get('/interests', 'interests');
     Route::get('/', 'index');
+
+    Route::post('/message/send', 'send');
 });
 
 
@@ -55,12 +57,17 @@ Route::controller(CommandController::class)
 
         Route::post('checkout/', 'store');
 
+
+
     });
 
 
 Route::controller(CartController::class)
+    ->name('cart.')
     ->group(function(){
         Route::get('/cart/items', 'items');
+
+        Route::post('/cart/push', 'addItem');
     });
 
 Route::controller(ClientController::class)->name("social.")->prefix("auth")

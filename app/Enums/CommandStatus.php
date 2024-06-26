@@ -11,6 +11,8 @@ enum CommandStatus: string
 
     case Shipped = 'shipped';
 
+    case Shipping = 'shipping';
+
     case Finished = 'finished';
 
 

@@ -4,14 +4,19 @@
  * here wll store community routes
 */
 
+use App\Http\Controllers\Community\CommunityController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){
-    return 'i will handle this';
-});
+Route::controller(CommunityController::class)
+    ->group(function(){
 
-Route::controller(\App\Http\Controllers\PostController::class)
+        Route::get('/', 'index');
+
+    });
+
+Route::controller(PostController::class)
     ->name('post.')
     ->group(function(){
 

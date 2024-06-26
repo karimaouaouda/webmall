@@ -14,55 +14,153 @@ class CategorySeeder extends Seeder
      */
 
     protected array $categories = [
-        "Electronics" => [
-            "Mobile Phones",
-            "Laptops",
-            "Cameras",
-            "Televisions"
+        [
+            'category' => 'Electronics',
+            'subcategories' => [
+                'Mobile Phones',
+                'Laptops',
+                'Cameras',
+                'Televisions'
+            ]
         ],
-        "Home Appliances" => [
-            "Refrigerators",
-            "Microwaves",
-            "Washing Machines",
-            "Air Conditioners"
+        [
+            'category' => 'Home Appliances',
+            'subcategories' => [
+                'Refrigerators',
+                'Washing Machines',
+                'Microwave Ovens',
+                'Air Conditioners'
+            ]
         ],
-        "Furniture" => [
-            "Sofas",
-            "Beds",
-            "Dining Tables",
-            "Chairs"
+        [
+            'category' => 'Fashion',
+            'subcategories' => [
+                'Men\'s Clothing',
+                'Women\'s Clothing',
+                'Shoes',
+                'Accessories'
+            ]
         ],
-        "Clothing" => [
-            "Men's Clothing",
-            "Women's Clothing",
-            "Kid's Clothing",
-            "Accessories"
+        [
+            'category' => 'Beauty & Personal Care',
+            'subcategories' => [
+                'Skincare',
+                'Haircare',
+                'Makeup',
+                'Fragrances'
+            ]
         ],
-        "Books" => [
-            "Fiction",
-            "Non-Fiction",
-            "Children's Books",
-            "Academic"
+        [
+            'category' => 'Sports & Outdoors',
+            'subcategories' => [
+                'Fitness Equipment',
+                'Outdoor Gear',
+                'Sportswear',
+                'Camping & Hiking'
+            ]
         ],
-        "Sports" => [
-            "Cricket",
-            "Football",
-            "Tennis",
-            "Fitness Equipment"
+        [
+            'category' => 'Toys & Games',
+            'subcategories' => [
+                'Action Figures',
+                'Board Games',
+                'Educational Toys',
+                'Puzzles'
+            ]
+        ],
+        [
+            'category' => 'Automotive',
+            'subcategories' => [
+                'Car Accessories',
+                'Motorcycle Parts',
+                'Car Electronics',
+                'Tires & Wheels'
+            ]
+        ],
+        [
+            'category' => 'Books',
+            'subcategories' => [
+                'Fiction',
+                'Non-Fiction',
+                'Educational',
+                'Children\'s Books'
+            ]
+        ],
+        [
+            'category' => 'Music & Movies',
+            'subcategories' => [
+                'Music CDs',
+                'Vinyl Records',
+                'DVDs',
+                'Blu-ray Discs'
+            ]
+        ],
+        [
+            'category' => 'Health & Wellness',
+            'subcategories' => [
+                'Supplements',
+                'Personal Care',
+                'Medical Supplies'
+            ]
+        ],
+        [
+            'category' => 'Groceries',
+            'subcategories' => [
+                'Fruits & Vegetables',
+                'Beverages',
+                'Snacks',
+                'Dairy Products'
+            ]
+        ],
+        [
+            'category' => 'Office Supplies',
+            'subcategories' => [
+                'Stationery',
+                'Office Furniture',
+                'Printers & Ink',
+                'Office Electronics'
+            ]
+        ],
+        [
+            'category' => 'Pet Supplies',
+            'subcategories' => [
+                'Pet Food',
+                'Pet Toys',
+                'Pet Grooming',
+                'Pet Accessories'
+            ]
+        ],
+        [
+            'category' => 'Garden & Outdoors',
+            'subcategories' => [
+                'Gardening Tools',
+                'Outdoor Furniture',
+                'Plants & Seeds',
+                'Grills & Outdoor Cooking'
+            ]
+        ],
+        [
+            'category' => 'Baby Products',
+            'subcategories' => [
+                'Baby Clothing',
+                'Baby Gear',
+                'Diapering',
+                'Feeding'
+            ]
         ]
     ];
-    public function run(): void
+public function run(): void
     {
-        foreach ($this->categories as $category => $subcategories){
+        foreach ($this->categories as $category){
             $cat = new Category([
-                'name' => $category
+                'name' => $category['category']
             ]);
 
             $cat->save();
 
-            foreach ($subcategories as $subcategory){
+            foreach ($category['subcategories'] as $subcategory){
                 $sub = new SubCategory([
-                    'category_name' => $category,
+                    'category_name' => $category['category'],
                     'name' => $subcategory
                 ]);
 

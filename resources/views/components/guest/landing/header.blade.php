@@ -61,47 +61,29 @@
             </h5>
 
             <div class="deals w-full mt-4 px-10 ">
-                <div x-data="{}" class="carousel w-full border  relative">
+                <div x-data="{current : 1, max : {{count($welcomeDeals ?? [])}}}"  class="carousel w-full border  relative">
                     <div class="renderer relative mx-auto overflow-hidden w-3/5 h-72 bg-slate-300 shadow-md rounded-xl">
-                        <a href="#" class="w-full h-full block">
-                            <img class="w-full h-full" src="{{ asset('assets/images/landing/pic.webp') }}" alt="">
+                        @php  $i = 0;  @endphp
+
+                        @foreach($welcomeDeals as $deal)
+                        <a x-show="current == {{++$i}}" x-transition x-data="{key : 1}" href="/products/{{$deal->id}}/view" class="w-full h-full block">
+                            <img class="w-full h-full object-contain" src="{{ asset('storage/' . $deal->images[0]) }}" alt="">
                             <div class="price-brand absolute w-full items-center flex justify-center gap-1 bg-white h-10 bottom-7">
                                 <span class="text-red-500 font-extrabold">
-                                    255.20 DA
+                                    {{$deal->price_after_solde}} DA
                                 </span>
                                 <span class="align-bottom line-through font-bold">
-                                    <sub>350.20 DA</sub>
+                                    <sub>{{$deal->price}} DA</sub>
                                 </span>
                             </div>
                         </a>
-                        <a href="#" class="w-full h-full block">
-                            <img class="w-full h-full" src="{{ asset('assets/images/landing/pic.webp') }}" alt="">
-                            <div class="price-brand absolute w-full items-center flex justify-center gap-1 bg-white h-10 bottom-7">
-                                <span class="text-red-500 font-extrabold">
-                                    255.20 DA
-                                </span>
-                                <span class="align-bottom line-through font-bold">
-                                    <sub>350.20 DA</sub>
-                                </span>
-                            </div>
-                        </a>
-                        <a href="#" class="w-full h-full block">
-                            <img class="w-full h-full" src="{{ asset('assets/images/landing/pic.webp') }}" alt="">
-                            <div class="price-brand absolute w-full items-center flex justify-center gap-1 bg-white h-10 bottom-7">
-                                <span class="text-red-500 font-extrabold">
-                                    255.20 DA
-                                </span>
-                                <span class="align-bottom line-through font-bold">
-                                    <sub>350.20 DA</sub>
-                                </span>
-                            </div>
-                        </a>
+                        @endforeach
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-transparent hover:bg-slate-300 hover:bg-opacity-40
+                    <button @click="current = current < 1 ? max : current - 1" class="w-8 h-8 rounded-full bg-transparent hover:bg-slate-300 hover:bg-opacity-40
                         animation-300 absolute top-1/2 -translate-y-4 translate-x-4 flex items-center justify-center left-0">
                         <i class="bi bi-chevron-left"></i>
                     </button>
-                    <button class="w-8 h-8 rounded-full bg-transparent hover:bg-slate-300 hover:bg-opacity-40
+                    <button @click="current = current >= max ? 1 : current + 1" class="w-8 h-8 rounded-full bg-transparent hover:bg-slate-300 hover:bg-opacity-40
                         animation-300 absolute top-1/2 -translate-y-4 -translate-x-4 flex items-center justify-center right-0">
                         <i class="bi bi-chevron-right"></i>
                     </button>

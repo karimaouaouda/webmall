@@ -27,16 +27,9 @@ return new class extends Migration {
 
             $table->integer('sold')->default(0);
 
-            $table->string('tracking_code')->nullable();
-
 
 
             $table->timestamps();
-
-
-            $table->foreign('tracking_code')
-                ->references('tracking_code')
-                ->on('shippings');
 
         });
     }

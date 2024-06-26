@@ -12,7 +12,7 @@ class ShippingStatusView extends Widget
     protected function getViewData(): array
     {
         return [
-            'product' => "Processing",
+            'product' => 'shipped'
         ];
     }
 

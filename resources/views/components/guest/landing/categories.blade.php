@@ -30,15 +30,4 @@
             @endforeach
         </div>
     </div>
-
-    <div class="wrapper w-full px-4 mt-2 flex flex-col gap-3">
-        <div class="header">
-            <a href="#" class="flex gap-10 items-center">
-                <span class="title text-xl font-semibold text-black">
-                    Top Brands
-                </span>
-                <i class="bi bi-arrow-right text-2xl"></i>
-            </a>
-        </div>
-    </div>
 </section>

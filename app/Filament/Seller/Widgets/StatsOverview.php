@@ -8,6 +8,12 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
+
+    public static function canView(): bool
+    {
+        return auth('seller')->user()->has_shop ? auth('seller')->user()->shop->isPublished() : false;
+    }
+
     protected function getStats(): array
     {
         return [

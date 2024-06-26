@@ -13,6 +13,39 @@ class CommandService
         //$this->client = $client;
     }
 
+    public function resolveCommands(array $products): array
+    {
+        $commands = [];
+
+        foreach ($products as $product){
+            $found = false;
+            foreach($commands as $command){
+                if( $command['shop_unique_name'] == $product['shop_unique_name'] ){
+                    $found = true;
+
+                    $command['products'] += [
+                        'product_id' => $product['product_id'] ,
+                        'quantity' => $product['quantity']
+                    ];
+                }
+            }
+
+            if(!$found){
+                $commands[] = [
+                    'shop_unique_name' => $product['shop_unique_name'],
+                    'products' => [
+                        [
+                            'product_id' => $product['product_id'] ,
+                            'quantity' => $product['quantity']
+                        ]
+                    ]
+                ];
+            }
+        }
+
+
+        return $commands;
+    }
 
     public function extractAddress(StoreCommandRequest $request): array
     {
